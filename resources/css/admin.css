@@ -1,0 +1,328 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    background:
+    linear-gradient(
+        135deg,
+        #020617,
+        #07122b
+    );
+
+    color:white;
+
+    font-family:Arial, Helvetica, sans-serif;
+
+    min-height:100vh;
+
+    padding:40px;
+}
+
+.container{
+    max-width:1500px;
+    margin:auto;
+}
+
+
+/* TOPO */
+
+.topo{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:35px;
+}
+
+.topo h1{
+
+    font-size:56px;
+
+    font-weight:800;
+
+    letter-spacing:-2px;
+}
+
+.botao-tv{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+
+    color:white;
+
+    text-decoration:none;
+
+    padding:18px 30px;
+
+    border-radius:16px;
+
+    font-weight:bold;
+
+    transition:.2s;
+}
+
+.botao-tv:hover{
+    transform:scale(1.04);
+}
+
+
+/* CARDS */
+
+.card{
+
+    background:
+    rgba(15,23,42,.95);
+
+    border:
+    1px solid rgba(255,255,255,.06);
+
+    border-radius:26px;
+
+    padding:30px;
+
+    margin-bottom:35px;
+
+    box-shadow:
+    0 10px 40px rgba(0,0,0,.35);
+}
+
+.card h2{
+
+    margin-bottom:25px;
+
+    font-size:30px;
+
+    font-weight:700;
+}
+
+
+/* FORMULARIO */
+
+.formulario{
+
+    display:grid;
+
+    grid-template-columns:
+    2fr
+    1fr
+    1fr
+    120px
+    170px
+    160px;
+
+    gap:15px;
+
+    align-items:center;
+}
+
+
+/* INPUTS */
+
+input[type="text"],
+input[type="number"]{
+
+    width:100%;
+
+    background:#1e293b;
+
+    border:1px solid transparent;
+
+    color:white;
+
+    padding:16px;
+
+    border-radius:14px;
+
+    font-size:16px;
+
+    transition:.2s;
+}
+
+input:focus{
+
+    outline:none;
+
+    border-color:#ef4444;
+
+    box-shadow:
+    0 0 0 4px rgba(239,68,68,.15);
+}
+
+
+/* CHECKBOX */
+
+.checkbox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:15px;
+}
+
+
+/* BOTÕES */
+
+.botao-salvar,
+.botao-editar,
+.botao-excluir{
+
+    border:none;
+
+    color:white;
+
+    padding:14px 22px;
+
+    border-radius:14px;
+
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.botao-salvar,
+.botao-editar{
+
+    background:
+    linear-gradient(
+        135deg,
+        #22c55e,
+        #16a34a
+    );
+}
+
+.botao-excluir{
+
+    background:
+    linear-gradient(
+        135deg,
+        #ef4444,
+        #dc2626
+    );
+}
+
+.botao-salvar:hover,
+.botao-editar:hover,
+.botao-excluir:hover{
+
+    transform:translateY(-2px);
+}
+
+
+/* LISTA PRODUTOS */
+
+.lista-produtos{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+}
+
+
+/* ITEM PRODUTO */
+
+.produto-item{
+
+    background:
+    linear-gradient(
+        135deg,
+        rgba(30,41,59,.9),
+        rgba(15,23,42,.95)
+    );
+
+    border:
+    1px solid rgba(255,255,255,.05);
+
+    border-radius:22px;
+
+    padding:24px;
+
+    transition:.2s;
+}
+
+.produto-item:hover{
+
+    transform:translateY(-2px);
+
+    border-color:
+    rgba(239,68,68,.25);
+}
+
+
+/* GRID DOS CAMPOS */
+
+.grid{
+
+    display:grid;
+
+    grid-template-columns:
+    2fr
+    1fr
+    1fr
+    120px;
+
+    gap:15px;
+
+    margin-bottom:20px;
+}
+
+
+/* AÇÕES */
+
+.acoes{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    flex-wrap:wrap;
+}
+
+
+/* RESPONSIVO */
+
+@media(max-width:1200px){
+
+    .formulario{
+        grid-template-columns:1fr;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .acoes{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .topo{
+        flex-direction:column;
+        gap:20px;
+        align-items:flex-start;
+    }
+
+    .topo h1{
+        font-size:42px;
+    }
+
+}
