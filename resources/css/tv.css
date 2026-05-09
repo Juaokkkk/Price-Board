@@ -169,3 +169,49 @@ body{
     }
 
 }
+
+.voltar-admin{
+
+    position:fixed;
+
+    top:18px;
+
+    left:18px;
+
+    z-index:9999;
+
+    width:52px;
+
+    height:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+    rgba(0,0,0,.45);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.2s;
+}
+
+.voltar-admin:hover{
+
+    transform:scale(1.08);
+
+    background-color: rgba(178, 34, 34);
+}
+
+.voltar-admin .material-symbols-outlined{
+
+    font-size:34px;
+}
