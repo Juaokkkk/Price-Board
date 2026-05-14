@@ -10,8 +10,11 @@
 /* TELA */
 
 body{
+
     background:#000;
+
     overflow:hidden;
+
     font-family:Arial, Helvetica, sans-serif;
 }
 
@@ -19,42 +22,49 @@ body{
 /* CONTAINER PRINCIPAL */
 
 .tela{
+
     position:relative;
 
     width:100vw;
+
     height:100vh;
 
     overflow:hidden;
 }
 
 
-/* IMAGEM DE FUNDO RESPONSIVA */
+/* IMAGEM DE FUNDO */
 
 .background{
+
     position:absolute;
 
     top:0;
+
     left:0;
 
     width:100%;
+
     height:100%;
 
     object-fit:cover;
+
     object-position:center;
 
     z-index:1;
 }
 
 
-/* CAMADA DOS DADOS */
+/* CAMADA PRODUTOS */
 
 .produtos{
+
     position:absolute;
 
     top:0;
 
     left:0;
-    
+
     width:100%;
 
     height:100%;
@@ -63,9 +73,10 @@ body{
 }
 
 
-/* LINHAS DOS PRODUTOS */
+/* LINHAS */
 
 .linha{
+
     position:absolute;
 
     width:58%;
@@ -80,7 +91,7 @@ body{
 }
 
 
-/* NOME DO PRODUTO */
+/* NOME */
 
 .nome{
 
@@ -96,7 +107,6 @@ body{
 
     line-height:1;
 
-    /* RESPONSIVO */
     font-size:clamp(16px, 2vw, 42px);
 }
 
@@ -117,12 +127,25 @@ body{
 
     line-height:1;
 
-    /* RESPONSIVO */
     font-size:clamp(18px, 2.2vw, 46px);
 }
 
 
-/* POSIÇÕES RESPONSIVAS */
+/* OFERTA */
+
+.oferta{
+
+    color:#ff4d4d;
+
+    font-size:.75em;
+
+    margin-left:10px;
+
+    font-weight:800;
+}
+
+
+/* POSIÇÕES */
 
 .linha-1{ top:9.5%; }
 .linha-2{ top:17.9%; }
@@ -136,20 +159,74 @@ body{
 .linha-10{ top:84.6%; }
 
 
-/* TELAS MENORES */
+/* BOTÃO VOLTAR */
+
+.botao-voltar{
+
+    position:absolute;
+
+    top:24px;
+
+    left:24px;
+
+    z-index:9999;
+
+    width:60px;
+
+    height:60px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:18px;
+
+    background:rgba(0,0,0,.35);
+
+    backdrop-filter:blur(10px);
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:.2s;
+
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.botao-voltar:hover{
+
+    transform:translateY(-2px);
+
+    background:rgba(0,0,0,.55);
+}
+
+.botao-voltar .material-symbols-outlined{
+
+    font-size:36px;
+}
+
+
+/* RESPONSIVO */
 
 @media (max-width:1366px){
 
     .linha{
+
         width:60%;
+
         right:2%;
     }
 
     .nome{
+
         font-size:clamp(14px, 1.8vw, 34px);
     }
 
     .preco{
+
         font-size:clamp(14px, 1.9vw, 36px);
     }
 
@@ -161,57 +238,13 @@ body{
 @media (min-width:2560px){
 
     .nome{
+
         font-size:clamp(30px, 2vw, 70px);
     }
 
     .preco{
+
         font-size:clamp(30px, 2.2vw, 80px);
     }
 
-}
-
-.voltar-admin{
-
-    position:fixed;
-
-    top:18px;
-
-    left:18px;
-
-    z-index:9999;
-
-    width:52px;
-
-    height:52px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:
-    rgba(0,0,0,.45);
-
-    backdrop-filter:blur(10px);
-
-    color:white;
-
-    text-decoration:none;
-
-    transition:.2s;
-}
-
-.voltar-admin:hover{
-
-    transform:scale(1.08);
-
-    background-color: rgba(178, 34, 34);
-}
-
-.voltar-admin .material-symbols-outlined{
-
-    font-size:34px;
 }

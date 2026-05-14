@@ -11,11 +11,17 @@
 
     @vite('resources/css/admin.css')
 
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    >
+
 </head>
 
 <body>
 
 <div class="container">
+
 
     <!-- TOPO -->
 
@@ -24,7 +30,7 @@
         <div>
 
             <h1>
-                Gerenciar Produtos
+                Price Board
             </h1>
 
             <p class="subtitulo">
@@ -33,13 +39,35 @@
 
         </div>
 
-        <a
-            href="/tv/acougue"
-            class="botao-tv"
-            target="_blank"
-        >
-            Abrir Tela TV
-        </a>
+
+        <div class="acoes-topo">
+
+            <a
+                href="/tv/acougue"
+                class="botao-tv"
+                target="_blank"
+            >
+                Abrir Tela TV
+            </a>
+
+
+            <button
+                type="button"
+                id="toggle-theme"
+                class="botao-tema"
+            >
+
+                <span class="material-symbols-outlined icone-sol">
+                    light_mode
+                </span>
+
+                <span class="material-symbols-outlined icone-lua">
+                    dark_mode
+                </span>
+
+            </button>
+
+        </div>
 
     </div>
 
@@ -61,6 +89,7 @@
 
         </div>
 
+
         <form
             action="/admin/produtos"
             method="POST"
@@ -68,6 +97,7 @@
         >
 
             @csrf
+
 
             <div class="campo">
 
@@ -188,6 +218,7 @@
         </div>
 
 
+
         <!-- CABEÇALHO -->
 
         <div class="cabecalho-grid">
@@ -201,6 +232,7 @@
             <div>Ordem</div>
 
         </div>
+
 
 
         <!-- LISTA -->
@@ -239,6 +271,7 @@
                     </div>
 
 
+
                     <form
                         action="/admin/produtos/{{ $produto->id }}"
                         method="POST"
@@ -250,6 +283,7 @@
 
 
                         <div class="grid">
+
 
                             <div class="campo">
 
@@ -264,6 +298,7 @@
                                 >
 
                             </div>
+
 
 
                             <div class="campo">
@@ -281,6 +316,7 @@
                             </div>
 
 
+
                             <div class="campo">
 
                                 <label>
@@ -295,6 +331,7 @@
                                 >
 
                             </div>
+
 
 
                             <div class="campo">
@@ -330,6 +367,7 @@
                             </label>
 
 
+
                             <label class="checkbox">
 
                                 <input
@@ -343,6 +381,7 @@
                             </label>
 
 
+
                             <button
                                 type="submit"
                                 class="botao-editar"
@@ -351,6 +390,7 @@
                             </button>
 
                     </form>
+
 
 
                     <form
@@ -381,6 +421,43 @@
     </div>
 
 </div>
+
+
+
+<script>
+
+    const botaoTema = document.getElementById('toggle-theme');
+
+    const temaAtual = localStorage.getItem('tema');
+
+    if(temaAtual === 'light'){
+
+        document.body.setAttribute('data-theme', 'light');
+
+    }
+
+
+    botaoTema.addEventListener('click', () => {
+
+        const tema = document.body.getAttribute('data-theme');
+
+        if(tema === 'light'){
+
+            document.body.removeAttribute('data-theme');
+
+            localStorage.setItem('tema', 'dark');
+
+        }else{
+
+            document.body.setAttribute('data-theme', 'light');
+
+            localStorage.setItem('tema', 'light');
+
+        }
+
+    });
+
+</script>
 
 </body>
 </html>

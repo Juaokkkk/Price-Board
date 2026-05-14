@@ -15,6 +15,8 @@ body{
     min-height:100vh;
 
     padding:40px;
+
+    transition:.25s;
 }
 
 .container{
@@ -52,10 +54,22 @@ body{
 
     margin-top:8px;
 
-    color:
-    rgba(255,255,255,.55);
+    color:rgba(255,255,255,.55);
 
     font-size:16px;
+}
+
+
+
+/* AÇÕES TOPO */
+
+.acoes-topo{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
 }
 
 
@@ -76,8 +90,7 @@ body{
 
     font-weight:600;
 
-    border:
-    1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
 
     transition:.2s;
 }
@@ -91,14 +104,76 @@ body{
 
 
 
+/* BOTÃO TEMA */
+
+.botao-tema{
+
+    width:58px;
+
+    height:58px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#1e293b;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+    position:relative;
+}
+
+.botao-tema:hover{
+
+    transform:translateY(-2px);
+}
+
+.botao-tema .material-symbols-outlined{
+
+    font-size:28px;
+
+    position:absolute;
+
+    transition:.2s;
+}
+
+
+
+/* ÍCONES */
+
+.icone-sol{
+
+    opacity:0;
+
+    transform:scale(.5);
+}
+
+.icone-lua{
+
+    opacity:1;
+
+    transform:scale(1);
+}
+
+
+
 /* CARDS */
 
 .card{
 
     background:#111827;
 
-    border:
-    1px solid rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.06);
 
     border-radius:24px;
 
@@ -106,8 +181,9 @@ body{
 
     margin-bottom:30px;
 
-    box-shadow:
-    0 2px 10px rgba(0,0,0,.18);
+    box-shadow:0 2px 10px rgba(0,0,0,.18);
+
+    transition:.25s;
 }
 
 .card h2{
@@ -136,11 +212,9 @@ body{
 .badge,
 .quantidade{
 
-    background:
-    rgba(255,255,255,.06);
+    background:rgba(255,255,255,.06);
 
-    color:
-    rgba(255,255,255,.75);
+    color:rgba(255,255,255,.75);
 
     padding:10px 16px;
 
@@ -155,15 +229,14 @@ body{
 
     margin-top:6px;
 
-    color:
-    rgba(255,255,255,.55);
+    color:rgba(255,255,255,.55);
 
     font-size:15px;
 }
 
 
 
-/* FORMULARIO */
+/* FORMULÁRIO */
 
 .formulario{
 
@@ -201,8 +274,7 @@ body{
 
     font-weight:600;
 
-    color:
-    rgba(255,255,255,.7);
+    color:rgba(255,255,255,.7);
 }
 
 
@@ -216,8 +288,7 @@ input[type="number"]{
 
     background:#1e293b;
 
-    border:
-    1px solid rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.05);
 
     color:white;
 
@@ -235,13 +306,11 @@ input:focus{
     outline:none;
 
     border-color:#475569;
-
-    box-shadow:none;
 }
 
 
 
-/* CHECKBOX CUSTOM */
+/* CHECKBOX */
 
 .checkbox{
 
@@ -257,8 +326,7 @@ input:focus{
 
     font-weight:600;
 
-    color:
-    rgba(255,255,255,.85);
+    color:rgba(255,255,255,.85);
 
     cursor:pointer;
 }
@@ -275,8 +343,7 @@ input:focus{
 
     background:#1e293b;
 
-    border:
-    1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
 
     transition:.2s;
 
@@ -347,8 +414,7 @@ input:focus{
 
     font-size:15px;
 
-    border:
-    1px solid rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
 }
 
 .botao-salvar,
@@ -403,8 +469,7 @@ input:focus{
 
     letter-spacing:1px;
 
-    color:
-    rgba(255,255,255,.4);
+    color:rgba(255,255,255,.4);
 }
 
 
@@ -428,20 +493,18 @@ input:focus{
 
     background:#0f172a;
 
-    border:
-    1px solid rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.05);
 
     border-radius:22px;
 
     padding:26px;
 
-    transition:.2s;
+    transition:.25s;
 }
 
 .produto-item:hover{
 
-    border-color:
-    rgba(255,255,255,.08);
+    border-color:rgba(255,255,255,.08);
 }
 
 
@@ -470,8 +533,7 @@ input:focus{
 
     font-size:13px;
 
-    color:
-    rgba(255,255,255,.4);
+    color:rgba(255,255,255,.4);
 }
 
 
@@ -488,8 +550,7 @@ input:focus{
 
     font-weight:600;
 
-    background:
-    rgba(255,255,255,.06);
+    background:rgba(255,255,255,.06);
 }
 
 .status.ativo{
@@ -536,6 +597,109 @@ input:focus{
     flex-wrap:wrap;
 
     padding-top:5px;
+}
+
+
+
+/* ========================= */
+/* TEMA CLARO */
+/* ========================= */
+
+body[data-theme="light"]{
+
+    background:#f1f5f9;
+
+    color:#0f172a;
+}
+
+body[data-theme="light"] .card{
+
+    background:white;
+
+    border:1px solid #dbe2ea;
+}
+
+body[data-theme="light"] input{
+
+    background:#f8fafc;
+
+    color:#0f172a;
+
+    border:1px solid #dbe2ea;
+}
+
+body[data-theme="light"] .produto-item{
+
+    background:#ffffff;
+
+    border:1px solid #dbe2ea;
+}
+
+body[data-theme="light"] .subtitulo{
+
+    color:#64748b;
+}
+
+body[data-theme="light"] .badge,
+body[data-theme="light"] .quantidade{
+
+    background:#f1f5f9;
+
+    color:#475569;
+}
+
+body[data-theme="light"] .cabecalho-grid{
+
+    color:#64748b;
+}
+
+body[data-theme="light"] .produto-id{
+
+    color:#64748b;
+}
+
+body[data-theme="light"] .campo label{
+
+    color:#475569;
+}
+
+body[data-theme="light"] .checkbox{
+
+    color:#334155;
+}
+
+body[data-theme="light"] .checkbox input{
+
+    background:white;
+
+    border:1px solid #cbd5e1;
+}
+
+body[data-theme="light"] .botao-tema{
+
+    background:white;
+
+    color:#0f172a;
+
+    border:1px solid #dbe2ea;
+}
+
+
+
+/* ÍCONES TEMA */
+
+body[data-theme="light"] .icone-sol{
+
+    opacity:1;
+
+    transform:scale(1);
+}
+
+body[data-theme="light"] .icone-lua{
+
+    opacity:0;
+
+    transform:scale(.5);
 }
 
 
