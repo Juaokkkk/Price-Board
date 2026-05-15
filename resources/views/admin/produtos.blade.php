@@ -43,9 +43,9 @@
         <div class="acoes-topo">
 
             <a
-                href="/tv/acougue"
-                class="botao-tv"
-                target="_blank"
+            href="/tv/acougue"
+            class="botao-tv"
+            target="tvscreen"
             >
                 Abrir Tela TV
             </a>

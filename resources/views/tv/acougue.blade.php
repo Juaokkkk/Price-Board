@@ -14,7 +14,7 @@
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
-    />
+    >
 
     <script>
 
@@ -30,26 +30,27 @@
 
 <div class="tela">
 
+    <!-- IMAGEM -->
+
     <img
         id="background-tv"
         src="/assets/img/tab.preco-acougue.png"
         class="background"
     >
 
-
     <!-- BOTÃO VOLTAR -->
 
-    <a
+        <a  
         href="/admin/produtos"
         class="botao-voltar"
-    >
+        target="admin"
+        >
 
         <span class="material-symbols-outlined">
             arrow_circle_left
         </span>
 
     </a>
-
 
 
     <!-- PRODUTOS -->
@@ -74,11 +75,8 @@
 
                 </div>
 
-
                 <div class="preco">
-
                     {{ number_format($produto->preco, 2, ',', '.') }}
-
                 </div>
 
             </div>
@@ -90,19 +88,21 @@
 </div>
 
 
-
 <script>
 
     const tema = localStorage.getItem('tema');
 
     const imagem = document.getElementById('background-tv');
 
-
     if(tema === 'light'){
+
+        document.body.setAttribute('data-theme', 'light');
 
         imagem.src = '/assets/img/tab.preco-acougue-white.png';
 
     }else{
+
+        document.body.setAttribute('data-theme', 'dark');
 
         imagem.src = '/assets/img/tab.preco-acougue.png';
 
