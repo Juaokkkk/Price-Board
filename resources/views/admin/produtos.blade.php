@@ -11,6 +11,8 @@
 
     @vite('resources/css/admin.css')
 
+    <link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
+
     <link
         rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"

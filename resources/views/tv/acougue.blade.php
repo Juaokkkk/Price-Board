@@ -9,6 +9,8 @@
 
     <title>Price Board</title>
 
+    <link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
+
     @vite('resources/css/tv.css')
 
     <link
