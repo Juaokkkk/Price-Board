@@ -24,6 +24,80 @@
 
 <div class="container">
 
+    @if ($errors->any())
+
+    <div class="popup-overlay" id="popupErro">
+
+        <div class="popup-erro">
+
+            <div class="popup-topo">
+
+                <span>⚠️</span>
+
+                <h3>
+                    Não foi possível salvar
+                </h3>
+
+            </div>
+
+            <ul>
+
+                @foreach ($errors->all() as $erro)
+
+                    <li>{{ $erro }}</li>
+
+                @endforeach
+
+            </ul>
+
+            <button
+                type="button"
+                onclick="fecharPopupErro()"
+                class="popup-botao"
+            >
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
+@endif
+
+@if(session('sucesso'))
+
+    <div class="popup-overlay" id="popupSucesso">
+
+        <div class="popup-sucesso">
+
+            <div class="popup-topo">
+
+                <span>✅</span>
+
+                <h3>
+                    Sucesso
+                </h3>
+
+            </div>
+
+            <p>
+                {{ session('sucesso') }}
+            </p>
+
+            <button
+                type="button"
+                onclick="fecharPopupSucesso()"
+                class="popup-botao-sucesso"
+            >
+                Fechar
+            </button>
+
+        </div>
+
+    </div>
+
+@endif
+
 
     <!-- TOPO -->
 
@@ -40,6 +114,20 @@
             </p>
 
         </div>
+
+        <div class="busca-topo">
+
+    <span class="material-symbols-outlined">
+        search
+    </span>
+
+    <input
+        type="text"
+        id="buscarProduto"
+        placeholder="Buscar..."
+    >
+
+</div>
 
 
         <div class="acoes-topo">
@@ -123,12 +211,20 @@
                     Categoria
                 </label>
 
-                <input
-                    type="text"
+                <select
                     name="categoria"
-                    placeholder="Ex: Bovinos"
-                    required
-                >
+                    required>
+
+                    <option value="">Selecione uma categoria</option>
+                    <option value="Bovinos">Bovinos</option>
+                    <option value="Suinos">Suínos</option>
+                    <option value="Aves">Aves</option>
+                    <option value="Peixes">Peixes</option>
+                    <option value="Embutidos">Embutidos</option>
+                    <option value="Congelados">Congelados</option>
+                    <option value="Laticinios">Laticínios</option>
+                    <option value="Outros">Outros</option>
+                </select>
 
             </div>
 
@@ -160,8 +256,9 @@
                     type="number"
                     name="ordem"
                     placeholder="1"
+                    min="1"
                     required
-                >
+                    >
 
             </div>
 
@@ -243,7 +340,11 @@
 
             @foreach($produtos as $produto)
 
-                <div class="produto-item">
+                <div
+                class="produto-item"
+                data-produto="{{ strtolower($produto->nome) }}"
+                data-categoria="{{ strtolower($produto->categoria) }}"
+                >
 
                     <div class="produto-topo">
 
@@ -303,20 +404,76 @@
 
 
 
-                            <div class="campo">
+                          <div class="campo">
 
-                                <label>
-                                    Categoria
-                                </label>
+    <label>
+        Categoria
+    </label>
 
-                                <input
-                                    type="text"
-                                    name="categoria"
-                                    value="{{ $produto->categoria }}"
-                                >
+    <select
+        name="categoria"
+        required
+    >
 
-                            </div>
+        <option
+            value="Bovinos"
+            {{ $produto->categoria == 'Bovinos' ? 'selected' : '' }}
+        >
+            Bovinos
+        </option>
 
+        <option
+            value="Suinos"
+            {{ $produto->categoria == 'Suinos' ? 'selected' : '' }}
+        >
+            Suínos
+        </option>
+
+        <option
+            value="Aves"
+            {{ $produto->categoria == 'Aves' ? 'selected' : '' }}
+        >
+            Aves
+        </option>
+
+        <option
+            value="Peixes"
+            {{ $produto->categoria == 'Peixes' ? 'selected' : '' }}
+        >
+            Peixes
+        </option>
+
+        <option
+            value="Embutidos"
+            {{ $produto->categoria == 'Embutidos' ? 'selected' : '' }}
+        >
+            Embutidos
+        </option>
+
+        <option
+            value="Congelados"
+            {{ $produto->categoria == 'Congelados' ? 'selected' : '' }}
+        >
+            Congelados
+        </option>
+
+        <option
+            value="Laticinios"
+            {{ $produto->categoria == 'Laticinios' ? 'selected' : '' }}
+        >
+            Laticínios
+        </option>
+
+        <option
+            value="Outros"
+            {{ $produto->categoria == 'Outros' ? 'selected' : '' }}
+        >
+            Outros
+        </option>
+
+    </select>
+
+</div>
 
 
                             <div class="campo">
@@ -342,12 +499,12 @@
                                     Ordem na TV
                                 </label>
 
-                                <input
-                                    type="number"
-                                    name="ordem"
-                                    value="{{ $produto->ordem }}"
-                                >
-
+                              <input
+                                type="number"
+                                name="ordem"
+                                value="{{ $produto->ordem }}"
+                                min="1"
+        >
                             </div>
 
                         </div>
@@ -406,7 +563,8 @@
                         <button
                             type="submit"
                             class="botao-excluir"
-                        >
+                            onclick="return confirmarExclusao('{{ $produto->nome }}')"
+                            >
                             Excluir Produto
                         </button>
 
@@ -458,6 +616,77 @@
         }
 
     });
+
+    function fecharPopupErro(){
+
+        const popup = document.getElementById('popupErro');
+
+        if(popup){
+
+            popup.remove();
+
+        }
+
+    }  
+
+    function confirmarExclusao(nome){
+
+    return confirm(
+        'Deseja realmente excluir o produto "' +
+        nome +
+        '" ?'
+    );
+
+}
+
+function fecharPopupSucesso(){
+
+    const popup = document.getElementById('popupSucesso');
+
+    if(popup){
+
+        popup.remove();
+
+    }
+
+}
+
+const busca = document.getElementById('buscarProduto');
+
+if(busca){
+
+    busca.addEventListener('input', function(){
+
+        const termo = this.value.toLowerCase().trim();
+
+        document
+            .querySelectorAll('.produto-item')
+            .forEach(produto => {
+
+                const nome =
+                    produto.dataset.produto;
+
+                const categoria =
+                    produto.dataset.categoria;
+
+                if(
+                    nome.includes(termo) ||
+                    categoria.includes(termo)
+                ){
+
+                    produto.style.display = '';
+
+                }else{
+
+                    produto.style.display = 'none';
+
+                }
+
+            });
+
+    });
+
+}
 
 </script>
 
