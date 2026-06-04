@@ -215,7 +215,7 @@
                     name="categoria"
                     required>
 
-                    <option value="">Selecione uma categoria</option>
+                    <option value="">categoria</option>
                     <option value="Bovinos">Bovinos</option>
                     <option value="Suinos">Suínos</option>
                     <option value="Aves">Aves</option>
