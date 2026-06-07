@@ -6,7 +6,7 @@
 
 body{
 
-    background:#0f172a;
+    background:#171b24;
 
     color:#f8fafc;
 
@@ -167,11 +167,11 @@ body{
 
 
 
-/* CARDS */
+/*  S */
 
 .card{
 
-    background:#111827;
+    background:#0e1218;
 
     border:1px solid rgba(255,255,255,.06);
 
@@ -286,7 +286,7 @@ select{
 
     width:100%;
 
-    background:#1e293b;
+    background:#171b24;
 
     border:1px solid rgba(255,255,255,.05);
 
@@ -327,8 +327,6 @@ select{
 
     padding-right:50px;
 }
-
-
 
 /* CHECKBOX */
 
@@ -511,7 +509,7 @@ select{
 
 .produto-item{
 
-    background:#0f172a;
+    background:#1d2027;
 
     border:1px solid rgba(255,255,255,.05);
 
@@ -822,7 +820,7 @@ body[data-theme="light"] .popup-erro{
 
     padding:0 16px;
 
-    background:#1e293b;
+    background:#202531;
 
     border:1px solid rgba(255,255,255,.05);
 

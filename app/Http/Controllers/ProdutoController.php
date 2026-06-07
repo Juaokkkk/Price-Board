@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
 
 class ProdutoController extends Controller
 {
@@ -21,7 +22,8 @@ class ProdutoController extends Controller
 
     public function tv()
     {
-        $produtos = Produto::where('ativo', true)
+        $produtos = Produto::where('user_id', auth()->id())
+            ->where('ativo', true)
             ->orderBy('ordem')
             ->get();
 
@@ -30,98 +32,127 @@ class ProdutoController extends Controller
 
     public function index()
     {
-        $produtos = Produto::orderBy('ordem')->get();
+        $produtos = Produto::where('user_id', auth()->id())
+            ->orderBy('ordem')
+            ->get();
 
         return view('admin.produtos', compact('produtos'));
     }
 
     public function store(Request $request)
     {
-       $dados = $request->validate(
-[
-    'nome' => 'required|string|max:255',
-    'categoria' => ['required', Rule::in($this->categorias)],
-    'preco' => 'required|numeric|min:0',
-    'ordem' => 'required|integer|min:1|unique:produtos,ordem',
-],
-[
-    'nome.required' => 'Informe o nome do produto.',
-    'nome.max' => 'O nome pode ter no máximo 255 caracteres.',
+        $dados = $request->validate(
+            [
+                'nome' => 'required|string|max:255',
+                'categoria' => ['required', Rule::in($this->categorias)],
+                'preco' => 'required|numeric|min:0',
+                'ordem' => 'required|integer|min:1',
+            ],
+            [
+                'nome.required' => 'Informe o nome do produto.',
+                'nome.max' => 'O nome pode ter no máximo 255 caracteres.',
 
-    'categoria.required' => 'Selecione uma categoria.',
+                'categoria.required' => 'Selecione uma categoria.',
 
-    'preco.required' => 'Informe o preço.',
-    'preco.numeric' => 'O preço deve ser um número válido.',
-    'preco.min' => 'O preço não pode ser negativo.',
+                'preco.required' => 'Informe o preço.',
+                'preco.numeric' => 'O preço deve ser um número válido.',
+                'preco.min' => 'O preço não pode ser negativo.',
 
-    'ordem.required' => 'Informe a ordem na TV.',
-    'ordem.integer' => 'A ordem deve ser um número inteiro.',
-    'ordem.min' => 'A ordem deve ser maior que zero.',
-    'ordem.unique' => 'Já existe um produto utilizando essa posição na TV.'
-]
-);
+                'ordem.required' => 'Informe a ordem na TV.',
+                'ordem.integer' => 'A ordem deve ser um número inteiro.',
+                'ordem.min' => 'A ordem deve ser maior que zero.',
+            ]
+        );
 
-        Produto::create([
-            'nome' => $dados['nome'],
-            'categoria' => $dados['categoria'],
-            'preco' => $dados['preco'],
-            'promocao' => $request->has('promocao'),
-            'ativo' => true,
-            'ordem' => $dados['ordem'],
-        ]);
+        DB::transaction(function () use ($dados, $request) {
+
+            Produto::where('user_id', auth()->id())
+                ->where('ordem', '>=', $dados['ordem'])
+                ->increment('ordem');
+
+            Produto::create([
+                'user_id' => auth()->id(),
+                'nome' => $dados['nome'],
+                'categoria' => $dados['categoria'],
+                'preco' => $dados['preco'],
+                'promocao' => $request->has('promocao'),
+                'ativo' => true,
+                'ordem' => $dados['ordem'],
+            ]);
+        });
 
         return redirect('/admin/produtos')
-    ->with('sucesso', 'Produto cadastrado com sucesso.');
+            ->with('sucesso', 'Produto cadastrado com sucesso.');
     }
 
     public function update(Request $request, Produto $produto)
-{
-    $dados = $request->validate(
-    [
-        'nome' => 'required|string|max:255',
-        'categoria' => ['required', Rule::in($this->categorias)],
-        'preco' => 'required|numeric|min:0',
-        'ordem' => [
-            'required',
-            'integer',
-            'min:1',
-            Rule::unique('produtos', 'ordem')->ignore($produto->id),
-        ],
-    ],
-    [
-        'nome.required' => 'Informe o nome do produto.',
-        'nome.max' => 'O nome pode ter no máximo 255 caracteres.',
+    {
+        abort_if($produto->user_id !== auth()->id(), 403);
 
-        'categoria.required' => 'Selecione uma categoria.',
+        $dados = $request->validate(
+            [
+                'nome' => 'required|string|max:255',
+                'categoria' => ['required', Rule::in($this->categorias)],
+                'preco' => 'required|numeric|min:0',
+                'ordem' => 'required|integer|min:1',
+            ],
+            [
+                'nome.required' => 'Informe o nome do produto.',
+                'nome.max' => 'O nome pode ter no máximo 255 caracteres.',
 
-        'preco.required' => 'Informe o preço.',
-        'preco.numeric' => 'O preço deve ser um número válido.',
-        'preco.min' => 'O preço não pode ser negativo.',
+                'categoria.required' => 'Selecione uma categoria.',
 
-        'ordem.required' => 'Informe a ordem na TV.',
-        'ordem.integer' => 'A ordem deve ser um número inteiro.',
-        'ordem.min' => 'A ordem deve ser maior que zero.',
-        'ordem.unique' => 'Já existe um produto utilizando essa posição na TV.',
-    ]
-    );
+                'preco.required' => 'Informe o preço.',
+                'preco.numeric' => 'O preço deve ser um número válido.',
+                'preco.min' => 'O preço não pode ser negativo.',
 
-    $produto->update([
-        'nome' => $dados['nome'],
-        'categoria' => $dados['categoria'],
-        'preco' => $dados['preco'],
-        'promocao' => $request->has('promocao'),
-        'ativo' => $request->has('ativo'),
-        'ordem' => $dados['ordem'],
-    ]);
+                'ordem.required' => 'Informe a ordem na TV.',
+                'ordem.integer' => 'A ordem deve ser um número inteiro.',
+                'ordem.min' => 'A ordem deve ser maior que zero.',
+            ]
+        );
 
-    return redirect('/admin/produtos')
-        ->with('sucesso', 'Produto atualizado com sucesso.');
-}
+        DB::transaction(function () use ($produto, $dados, $request) {
+
+            $ordemAntiga = $produto->ordem;
+            $ordemNova = $dados['ordem'];
+
+            if ($ordemNova < $ordemAntiga) {
+
+                Produto::where('user_id', auth()->id())
+                    ->where('id', '!=', $produto->id)
+                    ->whereBetween('ordem', [$ordemNova, $ordemAntiga - 1])
+                    ->increment('ordem');
+
+            } elseif ($ordemNova > $ordemAntiga) {
+
+                Produto::where('user_id', auth()->id())
+                    ->where('id', '!=', $produto->id)
+                    ->whereBetween('ordem', [$ordemAntiga + 1, $ordemNova])
+                    ->decrement('ordem');
+            }
+
+            $produto->update([
+                'nome' => $dados['nome'],
+                'categoria' => $dados['categoria'],
+                'preco' => $dados['preco'],
+                'promocao' => $request->has('promocao'),
+                'ativo' => $request->has('ativo'),
+                'ordem' => $ordemNova,
+            ]);
+        });
+
+        return redirect('/admin/produtos')
+            ->with('sucesso', 'Produto atualizado com sucesso.');
+    }
+
     public function destroy(Produto $produto)
     {
+        abort_if($produto->user_id !== auth()->id(), 403);
+
         $produto->delete();
 
         return redirect('/admin/produtos')
-    ->with('sucesso', 'Produto removido com sucesso.');
+            ->with('sucesso', 'Produto removido com sucesso.');
     }
 }

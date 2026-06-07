@@ -287,20 +287,3 @@ body[data-theme="light"] .botao-voltar{
     }
 
 }
-
-
-/* TVs 4K */
-
-@media (min-width:2560px){
-
-    .nome{
-
-        font-size:clamp(30px, 2vw, 70px);
-    }
-
-    .preco{
-
-        font-size:clamp(30px, 2.2vw, 80px);
-    }
-
-}

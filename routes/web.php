@@ -3,16 +3,28 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 
-Route::get('/', function () {
-    return redirect('/tv/acougue');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+
+    Route::get('/', function () {
+        return redirect('/tv/acougue');
+    });
+
+    Route::get('/tv/acougue', [ProdutoController::class, 'tv']);
+
+    Route::get('/admin/produtos', [ProdutoController::class, 'index']);
+
+    Route::post('/admin/produtos', [ProdutoController::class, 'store']);
+
+    Route::put('/admin/produtos/{produto}', [ProdutoController::class, 'update']);
+
+    Route::delete('/admin/produtos/{produto}', [ProdutoController::class, 'destroy']);
+
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
 });
-
-Route::get('/tv/acougue', [ProdutoController::class, 'tv']);
-
-Route::get('/admin/produtos', [ProdutoController::class, 'index']);
-
-Route::post('/admin/produtos', [ProdutoController::class, 'store']);
-
-Route::put('/admin/produtos/{produto}', [ProdutoController::class, 'update']);
-
-Route::delete('/admin/produtos/{produto}', [ProdutoController::class, 'destroy']);
