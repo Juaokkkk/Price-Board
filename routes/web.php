@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\DashboardController;
 
 Route::middleware([
     'auth:sanctum',
@@ -23,8 +24,7 @@ Route::middleware([
 
     Route::delete('/admin/produtos/{produto}', [ProdutoController::class, 'destroy']);
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
 });

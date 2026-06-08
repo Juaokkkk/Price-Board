@@ -100,6 +100,17 @@
 
 
     <!-- TOPO -->
+<div class="barra-navegacao">
+
+    <a href="/dashboard" class="link-nav">
+        <span class="material-symbols-outlined">
+            dashboard
+        </span>
+
+        Dashboard
+    </a>
+
+</div>
 
     <div class="topo">
 

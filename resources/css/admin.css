@@ -784,6 +784,46 @@ select{
     font-weight:600;
 }
 
+.barra-navegacao{
+    display:flex;
+    gap:12px;
+    margin-bottom:20px;
+}
+
+.link-nav{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:10px 16px;
+
+    background:white;
+    color:#334155;
+
+    border:1px solid #e2e8f0;
+
+    border-radius:10px;
+    text-decoration:none;
+    font-weight:600;
+
+    transition:.2s;
+}
+
+.link-nav:hover{
+    background:#f8fafc;
+    transform:translateY(-1px);
+}
+
+body:not([data-theme="light"]) .link-nav{
+    background:#0f172a;
+    color:#e2e8f0;
+    border:1px solid #334155;
+}
+
+body:not([data-theme="light"]) .link-nav:hover{
+    background:#1e293b;
+}
+
 .popup-botao-sucesso:hover{
 
     background:#15803d;
