@@ -6,12 +6,12 @@
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
                             <a href="{{ route('dashboard') }}">
-                                <x-application-mark class="block h-9 w-auto" />
+                               <img src="{{ asset('assets/img/iconPB.png') }}" alt="logo do sistema" class="w-12 h-auto rounded-md">
                             </a>
                         </div>
 
                     <!-- Navigation Links -->
-    <div class="hidden space-x-2 sm:-my-px sm:ms-10 sm:flex">
+    <div class="hidden sm:flex sm:items-center space-x-2 sm:ms-10">
 
         <x-nav-link
             href="{{ route('dashboard') }}"

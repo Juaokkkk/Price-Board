@@ -264,12 +264,12 @@
                 </label>
 
                 <input
-                    type="number"
-                    name="ordem"
-                    placeholder="1"
-                    min="1"
-                    required
-                    >
+                type="number"
+                name="ordem"
+                value="{{ $proximaOrdem }}"
+                min="1"
+                required
+>
 
             </div>
 

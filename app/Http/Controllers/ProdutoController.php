@@ -31,14 +31,24 @@ class ProdutoController extends Controller
     }
 
     public function index()
-    {
-        $produtos = Produto::where('user_id', auth()->id())
-            ->orderBy('ordem')
-            ->get();
+{
+    $produtos = Produto::where('user_id', auth()->id())
+        ->orderBy('ordem')
+        ->get();
 
-        return view('admin.produtos', compact('produtos'));
-    }
+    $proximaOrdem = (
+        Produto::where('user_id', auth()->id())
+            ->max('ordem') ?? 0
+    ) + 1;
 
+    return view(
+        'admin.produtos',
+        compact(
+            'produtos',
+            'proximaOrdem'
+        )
+    );
+}
     public function store(Request $request)
     {
         $dados = $request->validate(
