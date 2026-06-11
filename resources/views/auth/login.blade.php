@@ -1,3 +1,4 @@
+<link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">

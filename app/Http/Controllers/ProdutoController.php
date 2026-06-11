@@ -6,6 +6,7 @@ use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
+use App\Models\Configuracao;
 
 class ProdutoController extends Controller
 {
@@ -20,15 +21,26 @@ class ProdutoController extends Controller
         'Outros'
     ];
 
-    public function tv()
-    {
-        $produtos = Produto::where('user_id', auth()->id())
-            ->where('ativo', true)
-            ->orderBy('ordem')
-            ->get();
+   public function tv()
+{
+    $produtos = Produto::where('user_id', auth()->id())
+        ->where('ativo', true)
+        ->orderBy('ordem')
+        ->get();
 
-        return view('tv.acougue', compact('produtos'));
-    }
+    $configuracao = Configuracao::where(
+        'user_id',
+        auth()->id()
+    )->first();
+
+    return view(
+        'tv.acougue',
+        compact(
+            'produtos',
+            'configuracao'
+        )
+    );
+}
 
     public function index()
 {

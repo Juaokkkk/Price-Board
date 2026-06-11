@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ConfiguracaoController;
 
 Route::middleware([
     'auth:sanctum',
@@ -26,5 +27,15 @@ Route::middleware([
 
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
+
+        Route::get(
+    '/admin/configuracoes',
+    [ConfiguracaoController::class, 'index']
+)->name('configuracoes.index');
+
+Route::post(
+    '/admin/configuracoes',
+    [ConfiguracaoController::class, 'update']
+)->name('configuracoes.update');
 
 });

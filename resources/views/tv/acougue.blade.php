@@ -28,17 +28,35 @@
 
 </head>
 
-<body>
+<body  style="--cor-principal: {{ $configuracao->cor_principal ?? '#dc2626' }};">
+
 
 <div class="tela">
+
+    @if($configuracao && $configuracao->logo)
+
+<div class="logo-tv">
+
+    <img
+        src="{{ asset('storage/' . $configuracao->logo) }}"
+        alt="Logo"
+    >
+
+</div>
+
+@endif
 
     <!-- IMAGEM -->
 
     <img
-        id="background-tv"
-        src="/assets/img/tab.preco-acougue.png"
-        class="background"
-    >
+    id="background-tv"
+    src="{{
+        $configuracao && $configuracao->imagem_fundo
+            ? asset('storage/' . $configuracao->imagem_fundo)
+            : asset('assets/img/tab.preco-acougue.png')
+    }}"
+    class="background"
+>
 
     <!-- BOTÃO VOLTAR -->
 
@@ -57,11 +75,11 @@
 
     <!-- PRODUTOS -->
 
-    <div class="produtos">
+<div class="painel-produtos">
 
-        @foreach($produtos as $index => $produto)
+    @foreach($produtos as $produto)
 
-            <div class="linha linha-{{ $index + 1 }}">
+        <div class="linha">
 
                 <div class="nome">
 
@@ -92,23 +110,12 @@
 
 <script>
 
-    const tema = localStorage.getItem('tema');
+  const tema = "{{ $configuracao->tema ?? 'escuro' }}";
 
-    const imagem = document.getElementById('background-tv');
-
-    if(tema === 'light'){
-
-        document.body.setAttribute('data-theme', 'light');
-
-        imagem.src = '/assets/img/tab.preco-acougue-white.png';
-
-    }else{
-
-        document.body.setAttribute('data-theme', 'dark');
-
-        imagem.src = '/assets/img/tab.preco-acougue.png';
-
-    }
+document.body.setAttribute(
+    'data-theme',
+    tema === 'claro' ? 'light' : 'dark'
+);
 
 </script>
 

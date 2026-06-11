@@ -40,15 +40,28 @@
         </x-nav-link>
 
         <x-nav-link
+    href="{{ route('configuracoes.index') }}"
+    :active="request()->is('admin/configuracoes')"
+>
+    <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[18px]">
+            settings
+        </span>
+
+        Configurações
+    </span>
+</x-nav-link>
+
+        <x-nav-link
             href="/tv/acougue"
+            target="tvscreen"
             :active="request()->is('tv/acougue')"
         >
             <span class="flex items-center gap-1">
                 <span class="material-symbols-outlined text-[18px]">
                     tv
                 </span>
-
-                TV
+                    TV
             </span>
         </x-nav-link>
 
@@ -209,7 +222,15 @@
             </x-responsive-nav-link>
 
             <x-responsive-nav-link
+             href="{{ route('configuracoes.index') }}"
+            :active="request()->is('admin/configuracoes')"
+            >
+            Configurações
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link
                 href="/tv/acougue"
+                target="tvscreen"
                 :active="request()->is('tv/acougue')"
             >
                 TV

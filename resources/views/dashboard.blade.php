@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
+<title>Dashboard</title>
 <x-app-layout>
     <x-slot name="header">
         <div class="flex items-center h-8">
@@ -103,7 +105,7 @@
         </a>
 
         <a href="/tv/acougue"
-           target="_blank"
+           target="tvscreen"
            class="flex items-center justify-between p-5 rounded-xl bg-green-600 hover:bg-green-700 text-white transition shadow-lg">
 
             <div class="flex items-center gap-4">

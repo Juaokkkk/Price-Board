@@ -57,19 +57,25 @@ body{
 
 /* PRODUTOS */
 
-.produtos{
+.painel-produtos{
 
     position:absolute;
 
-    top:0;
+    top:4%;
 
-    left:0;
+    right:3%;
 
-    width:100%;
+    width:60%;
 
-    height:100%;
+    height:76%;
 
     z-index:2;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:30px;
 }
 
 
@@ -77,61 +83,18 @@ body{
 
 .linha{
 
-    position:absolute;
-
     display:flex;
 
     justify-content:space-between;
 
     align-items:center;
+
+    min-height:72px;
+
+    padding:38px 20px;
+
+    border-radius:12px;
 }
-
-
-/* ========================= */
-/* DARK */
-/* ========================= */
-
-body[data-theme="dark"] .linha{
-
-    width:58%;
-
-    right:3%;
-}
-
-body[data-theme="dark"] .linha-1{ top:9.9%; }
-body[data-theme="dark"] .linha-2{ top:18.5%; }
-body[data-theme="dark"] .linha-3{ top:26.9%; }
-body[data-theme="dark"] .linha-4{ top:35.5%; }
-body[data-theme="dark"] .linha-5{ top:43.99%; }
-body[data-theme="dark"] .linha-6{ top:52.4%; }
-body[data-theme="dark"] .linha-7{ top:60.8%; }
-body[data-theme="dark"] .linha-8{ top:69%; }
-body[data-theme="dark"] .linha-9{ top:77.6%; }
-body[data-theme="dark"] .linha-10{ top:85.99%; }
-
-
-/* ========================= */
-/* LIGHT */
-/* ========================= */
-
-body[data-theme="light"] .linha{
-
-    width:58.2%;
-
-    right:2.8%;
-}
-
-body[data-theme="light"] .linha-1{ top:10.7%; }
-body[data-theme="light"] .linha-2{ top:19.4%; }
-body[data-theme="light"] .linha-3{ top:28.2%; }
-body[data-theme="light"] .linha-4{ top:36.99%; }
-body[data-theme="light"] .linha-5{ top:45.7%; }
-body[data-theme="light"] .linha-6{ top:54.4%; }
-body[data-theme="light"] .linha-7{ top:63.3%; }
-body[data-theme="light"] .linha-8{ top:72%; }
-body[data-theme="light"] .linha-9{ top:80.9%; }
-body[data-theme="light"] .linha-10{ top:89.6%; }
-
 
 /* NOME */
 
@@ -179,6 +142,11 @@ body[data-theme="dark"] .preco{
     color:white;
 }
 
+body[data-theme="dark"] .linha{
+
+    order: 4px solid var(--cor-principal);
+}
+
 
 /* CORES LIGHT */
 
@@ -190,17 +158,20 @@ body[data-theme="light"] .preco{
     color:#111827;
 }
 
+body[data-theme="light"] .linha{
+
+    border: 4px solid var(--cor-principal);
+}
 
 /* OFERTA */
 
 .oferta{
-
-    color:#ef4444;
-
+    background:var(--cor-principal);
+    color:white;
+    padding:4px 10px;
+    border-radius:8px;
     font-size:.75em;
-
     margin-left:10px;
-
     font-weight:800;
 }
 
@@ -286,4 +257,17 @@ body[data-theme="light"] .botao-voltar{
         font-size:clamp(14px, 1.9vw, 36px);
     }
 
+}
+
+.logo-tv{
+    position:absolute;
+    top:30px;
+    left:130px;
+    z-index:999;
+}
+
+.logo-tv img{
+    max-height:120px;
+    max-width:250px;
+    object-fit:contain;
 }

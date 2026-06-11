@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
+<title>Criar conta</title>
 <x-guest-layout>
     <x-authentication-card>
         <x-slot name="logo">
