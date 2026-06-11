@@ -1,4 +1,4 @@
-<title>Config</title>
+<title>Configurações da TV</title>
 <x-app-layout>
 <link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
     <div class="py-8">
@@ -82,8 +82,13 @@
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-3">
-                                Cor do texto
+                                Tema da Tabela
                             </label>
+
+                            <p class="text-sm text-gray-500 dark:text-slate-400 mb-4">
+                                Claro = texto escuro e fundo claro.
+                                Escuro = texto claro e fundo escuro.
+                            </p>
 
                             <div class="flex gap-6">
 
@@ -94,7 +99,7 @@
                                         value="claro"
                                         {{ $configuracao->tema == 'claro' ? 'checked' : '' }}
                                     >
-                                    Preto
+                                    Claro
                                 </label>
 
                                 <label class="flex items-center gap-2">
@@ -104,7 +109,7 @@
                                         value="escuro"
                                         {{ $configuracao->tema == 'escuro' ? 'checked' : '' }}
                                     >
-                                    Branco
+                                    Escuro
                                 </label>
 
                             </div>

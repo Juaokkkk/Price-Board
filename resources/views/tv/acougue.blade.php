@@ -49,11 +49,10 @@
     <!-- IMAGEM -->
 
     <img
-    id="background-tv"
     src="{{
         $configuracao && $configuracao->imagem_fundo
             ? asset('storage/' . $configuracao->imagem_fundo)
-            : asset('assets/img/tab.preco-acougue.png')
+            : asset('assets/img/fundo-default.jpg')
     }}"
     class="background"
 >
@@ -110,11 +109,11 @@
 
 <script>
 
-  const tema = "{{ $configuracao->tema ?? 'escuro' }}";
-
-document.body.setAttribute(
+ document.body.setAttribute(
     'data-theme',
-    tema === 'claro' ? 'light' : 'dark'
+    "{{ $configuracao->tema ?? 'escuro' }}" === 'claro'
+        ? 'light'
+        : 'dark'
 );
 
 </script>

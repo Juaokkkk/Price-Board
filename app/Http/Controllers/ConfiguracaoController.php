@@ -23,7 +23,10 @@ class ConfiguracaoController extends Controller
             'logo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:2048',
             'imagem_fundo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'tema' => 'required|in:claro,escuro',
-            'cor_principal' => 'required|string|max:20',
+            'cor_principal' => [
+            'required',
+            'regex:/^#([A-Fa-f0-9]{6})$/'
+            ],
         ]);
 
         $configuracao = Configuracao::firstOrCreate([
