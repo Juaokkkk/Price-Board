@@ -1,59 +1,182 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🥩 Price Board
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema desenvolvido em **Laravel 12** para exibição de preços em televisores/monitores e gerenciamento dos produtos através de um painel administrativo.
 
-## About Laravel
+O objetivo é permitir que mercados, açougues e estabelecimentos similares atualizem os preços em tempo real sem necessidade de alterar manualmente a arte exibida na TV.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ Funcionalidades
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- 📺 Tela pública para exibição dos produtos
+- 🛠️ Painel administrativo protegido por autenticação
+- ➕ Cadastro de produtos
+- ✏️ Edição de produtos
+- 🗑️ Exclusão de produtos
+- 🔍 Pesquisa de produtos
+- 📂 Organização por categorias
+- 💲 Controle de preços
+- 🏷️ Destaque para produtos em promoção
+- 👁️ Controle de produtos ativos/inativos
+- 🔢 Ordenação personalizada
+- ⚙️ Configurações do sistema
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 📷 Telas
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Painel Administrativo
 
-## Laravel Sponsors
+> Gerenciamento completo dos produtos.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+<img src="docs/admin.png" width="100%">
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### Tela da TV
 
-## Contributing
+> Interface otimizada para televisores e monitores.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<img src="docs/tv.png" width="100%">
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🚀 Tecnologias
 
-## Security Vulnerabilities
+- PHP 8.2+
+- Laravel 12
+- Livewire
+- Jetstream
+- Laravel Sanctum
+- MySQL
+- HTML5
+- CSS3
+- JavaScript
+- Vite
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
 
-## License
+## 📁 Estrutura do Projeto
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+app/
+database/
+public/
+resources/
+routes/
+storage/
+```
+
+---
+
+## ⚙️ Instalação
+
+Clone o projeto
+
+```bash
+git clone https://github.com/Juaokkkk/Price-Board.git
+```
+
+Entre na pasta
+
+```bash
+cd Price-Board
+```
+
+Instale as dependências
+
+```bash
+composer install
+
+npm install
+```
+
+Configure o arquivo `.env`
+
+```bash
+cp .env.example .env
+```
+
+Gere a chave
+
+```bash
+php artisan key:generate
+```
+
+Configure seu banco de dados no arquivo `.env`.
+
+Execute as migrations
+
+```bash
+php artisan migrate
+```
+
+Inicie o projeto
+
+```bash
+php artisan serve
+```
+
+Em outro terminal
+
+```bash
+npm run dev
+```
+
+---
+
+## 🔐 Acesso
+
+Após realizar o login, estarão disponíveis as seguintes áreas:
+
+| Rota | Descrição |
+|------|-----------|
+| `/admin/produtos` | Administração dos produtos |
+| `/admin/configuracoes` | Configurações do sistema |
+| `/tv/acougue` | Tela pública da TV |
+
+---
+
+## 📌 Funcionalidades do Produto
+
+Cada produto possui:
+
+- Nome
+- Categoria
+- Preço
+- Imagem
+- Ordem de exibição
+- Promoção
+- Status (Ativo/Inativo)
+
+---
+
+## 🎯 Objetivo
+
+O projeto foi criado para facilitar a atualização de painéis eletrônicos de preços, eliminando a necessidade de recriar artes sempre que houver alteração nos valores dos produtos.
+
+---
+
+## 📈 Melhorias Futuras
+
+- [ ] Upload de imagens por categoria
+- [ ] Múltiplas telas
+- [ ] Agendamento de promoções
+- [ ] Histórico de alterações
+- [ ] API para integração com ERP
+- [ ] Atualização em tempo real utilizando WebSockets
+
+---
+
+## 👨‍💻 Autor
+
+**João Alfredo**
+
+GitHub:
+https://github.com/Juaokkkk
+
+---
+
+## 📄 Licença
+
+Este projeto é destinado para fins de estudo e demonstração de desenvolvimento utilizando Laravel.
