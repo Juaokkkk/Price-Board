@@ -28,42 +28,55 @@
 
 </head>
 
-<body  style="--cor-principal: {{ $configuracao->cor_principal ?? '#dc2626' }};">
-
+<body style="--cor-principal: {{ $configuracao->cor_principal ?? '#dc2626' }};">
 
 <div class="tela">
 
     @if($configuracao && $configuracao->logo)
 
-<div class="logo-tv">
+        <div class="logo-tv">
 
-    <img
-        src="{{ asset('storage/' . $configuracao->logo) }}"
-        alt="Logo"
-    >
+            <img
+                src="{{ asset('storage/' . $configuracao->logo) }}"
+                alt="Logo"
+            >
 
-</div>
+        </div>
 
-@endif
+    @endif
 
-    <!-- IMAGEM -->
 
-    <img
-    src="{{
-        $configuracao && $configuracao->imagem_fundo
-            ? asset('storage/' . $configuracao->imagem_fundo)
-            : asset('assets/img/fundo-default.jpg')
-    }}"
-    class="background"
->
+    {{-- IMAGEM DE FUNDO OU LOGO PADRÃO --}}
+
+    @if($configuracao && $configuracao->imagem_fundo)
+
+        <img
+            src="{{ asset('storage/' . $configuracao->imagem_fundo) }}"
+            class="background"
+            alt="Fundo"
+        >
+
+    @else
+
+        <div class="logo-default">
+
+            <img
+                src="{{ asset('assets/img/iconPB.png') }}"
+                alt="PriceBoard"
+            >
+
+        </div>
+
+    @endif
+
 
     <!-- BOTÃO VOLTAR -->
 
-        <a  
+    <a
         href="/admin/produtos"
         class="botao-voltar"
         target="admin"
-        >
+    >
 
         <span class="material-symbols-outlined">
             arrow_circle_left
@@ -74,11 +87,11 @@
 
     <!-- PRODUTOS -->
 
-<div class="painel-produtos">
+    <div class="painel-produtos">
 
-    @foreach($produtos as $produto)
+        @foreach($produtos as $produto)
 
-        <div class="linha">
+            <div class="linha">
 
                 <div class="nome">
 
@@ -95,7 +108,9 @@
                 </div>
 
                 <div class="preco">
+
                     {{ number_format($produto->preco, 2, ',', '.') }}
+
                 </div>
 
             </div>
@@ -109,7 +124,7 @@
 
 <script>
 
- document.body.setAttribute(
+document.body.setAttribute(
     'data-theme',
     "{{ $configuracao->tema ?? 'escuro' }}" === 'claro'
         ? 'light'

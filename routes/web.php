@@ -28,14 +28,24 @@ Route::middleware([
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-        Route::get(
-    '/admin/configuracoes',
-    [ConfiguracaoController::class, 'index']
-)->name('configuracoes.index');
+    Route::get(
+        '/admin/configuracoes',
+        [ConfiguracaoController::class, 'index']
+    )->name('configuracoes.index');
 
-Route::post(
-    '/admin/configuracoes',
-    [ConfiguracaoController::class, 'update']
-)->name('configuracoes.update');
+    Route::post(
+        '/admin/configuracoes',
+        [ConfiguracaoController::class, 'update']
+    )->name('configuracoes.update');
+
+    Route::delete(
+        '/admin/configuracoes/remover-logo',
+        [ConfiguracaoController::class, 'removerLogo']
+    )->name('configuracoes.removerLogo');
+
+    Route::delete(
+        '/admin/configuracoes/remover-fundo',
+        [ConfiguracaoController::class, 'removerFundo']
+    )->name('configuracoes.removerFundo');
 
 });

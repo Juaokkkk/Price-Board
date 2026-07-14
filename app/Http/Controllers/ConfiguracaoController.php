@@ -24,8 +24,8 @@ class ConfiguracaoController extends Controller
             'imagem_fundo' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
             'tema' => 'required|in:claro,escuro',
             'cor_principal' => [
-            'required',
-            'regex:/^#([A-Fa-f0-9]{6})$/'
+                'required',
+                'regex:/^#([A-Fa-f0-9]{6})$/'
             ],
         ]);
 
@@ -63,5 +63,39 @@ class ConfiguracaoController extends Controller
         return redirect()
             ->route('configuracoes.index')
             ->with('success', 'Configurações salvas com sucesso.');
+    }
+
+    public function removerLogo()
+    {
+        $configuracao = Configuracao::where('user_id', auth()->id())->first();
+
+        if ($configuracao && $configuracao->logo) {
+
+            Storage::disk('public')->delete($configuracao->logo);
+
+            $configuracao->logo = null;
+            $configuracao->save();
+        }
+
+        return redirect()
+            ->route('configuracoes.index')
+            ->with('success', 'Logo removida com sucesso.');
+    }
+
+    public function removerFundo()
+    {
+        $configuracao = Configuracao::where('user_id', auth()->id())->first();
+
+        if ($configuracao && $configuracao->imagem_fundo) {
+
+            Storage::disk('public')->delete($configuracao->imagem_fundo);
+
+            $configuracao->imagem_fundo = null;
+            $configuracao->save();
+        }
+
+        return redirect()
+            ->route('configuracoes.index')
+            ->with('success', 'Imagem de fundo removida com sucesso.');
     }
 }
