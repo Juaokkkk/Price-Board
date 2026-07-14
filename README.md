@@ -193,6 +193,8 @@ https://github.com/Juaokkkk
 
 ---
 
-## 📄 Licença
+## 📄 Direitos Autorais
 
-Este projeto é destinado para fins de estudo e demonstração de desenvolvimento utilizando Laravel.
+© 2026 João Alfredo.
+
+Todos os direitos reservados.
