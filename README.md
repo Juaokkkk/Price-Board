@@ -29,7 +29,7 @@ O objetivo é permitir que mercados, açougues e estabelecimentos similares atua
 
 > Gerenciamento completo dos produtos.
 
-<img src="docs/admin.png" width="100%">
+<img src="docs/painel.png" width="100%">
 
 ---
 
@@ -37,7 +37,23 @@ O objetivo é permitir que mercados, açougues e estabelecimentos similares atua
 
 > Interface otimizada para televisores e monitores.
 
-<img src="docs/tv.png" width="100%">
+<img src="docs/price-board.png" width="100%">
+
+---
+
+### Dashboard
+
+> Dashboard limpa e prática.
+
+<img src="docs/dashboard.png" width="100%">
+
+---
+
+### Forms
+
+> Formulario de configuracão da tela.
+
+<img src="docs/forms.png" width="100%">
 
 ---
 
