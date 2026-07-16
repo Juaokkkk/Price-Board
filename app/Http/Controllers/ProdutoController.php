@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Models\Configuracao;
+use App\Models\Banner;
 
 class ProdutoController extends Controller
 {
@@ -21,22 +22,31 @@ class ProdutoController extends Controller
         'Outros'
     ];
 
-   public function tv()
+  public function tv()
 {
     $produtos = Produto::where('user_id', auth()->id())
         ->where('ativo', true)
         ->orderBy('ordem')
         ->get();
 
+
+    $banners = Banner::where('user_id', auth()->id())
+        ->where('ativo', true)
+        ->orderBy('ordem')
+        ->get();
+
+
     $configuracao = Configuracao::where(
         'user_id',
         auth()->id()
     )->first();
 
+
     return view(
         'tv.acougue',
         compact(
             'produtos',
+            'banners',
             'configuracao'
         )
     );

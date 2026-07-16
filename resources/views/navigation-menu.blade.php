@@ -40,6 +40,19 @@
         </x-nav-link>
 
         <x-nav-link
+    href="{{ route('banners.index') }}"
+    :active="request()->is('admin/banners*')"
+>
+    <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[18px]">
+            imagesmode
+        </span>
+
+        Banners
+    </span>
+</x-nav-link>
+
+        <x-nav-link
     href="{{ route('configuracoes.index') }}"
     :active="request()->is('admin/configuracoes')"
 >
