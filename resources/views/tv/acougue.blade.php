@@ -189,15 +189,12 @@ document.body.setAttribute(
 
 
 
-
-
 const produtos = document.getElementById('painel-produtos');
 
 const banners = document.getElementById('painel-banners');
 
 
 let bannerIndex = 0;
-
 
 
 
@@ -217,20 +214,32 @@ function iniciarCarrossel(){
 
 
 
-    produtos.style.display = "block";
+    produtos.style.display = "flex";
 
     banners.style.display = "none";
 
 
 
+    function mostrarProdutos(){
 
 
-    setInterval(function(){
+        banners.style.display = "none";
 
+        produtos.style.display = "flex";
+
+
+
+        setTimeout(mostrarBanner,16000);
+
+
+    }
+
+
+
+    function mostrarBanner(){
 
 
         produtos.style.display = "none";
-
 
         banners.style.display = "block";
 
@@ -244,23 +253,17 @@ function iniciarCarrossel(){
 
 
 
-        slides[bannerIndex].style.display = "block";
+        slides[bannerIndex].style.display = "flex";
 
 
 
-        // pega tempo definido no cadastro
-
-        let tempoBanner = slides[bannerIndex].dataset.duration * 1000;
-
-
-
-        setTimeout(function(){
+        let tempoBanner = Number(
+            slides[bannerIndex].dataset.duration ?? 5
+        ) * 1000;
 
 
-            banners.style.display = "none";
 
-
-            produtos.style.display = "block";
+        setTimeout(() => {
 
 
 
@@ -272,6 +275,14 @@ function iniciarCarrossel(){
 
                 bannerIndex = 0;
 
+                mostrarProdutos();
+
+            }
+
+            else {
+
+                mostrarBanner();
+
             }
 
 
@@ -280,19 +291,20 @@ function iniciarCarrossel(){
 
 
 
-    },16000);
+    }
 
+
+
+    // começa com produtos
+
+    setTimeout(mostrarBanner,16000);
 
 
 }
 
 
 
-
-
 iniciarCarrossel();
-
-
 
 
 
@@ -310,14 +322,13 @@ let tempoAtualizacao;
 
 
 
-
-
 if(slides.length === 0){
 
 
-    // sem banner
+    // sem banners
 
     tempoAtualizacao = 10000;
+
 
 
 }
@@ -325,29 +336,36 @@ if(slides.length === 0){
 else {
 
 
-    // 16 segundos produtos + tempo dos banners
+
+    // produtos + tempo de cada banner
 
     let tempoTotal = 0;
+
 
 
     slides.forEach(slide => {
 
 
+
         let duracao = Number(slide.dataset.duration ?? 5);
 
 
+
         tempoTotal += 16 + duracao;
+
 
 
     });
 
 
 
-    // margem
+    // adiciona margem
 
     tempoAtualizacao = (tempoTotal + 10) * 1000;
 
 
+
+    // mínimo de 30 segundos
 
     if(tempoAtualizacao < 30000){
 
@@ -356,8 +374,8 @@ else {
     }
 
 
-}
 
+}
 
 
 

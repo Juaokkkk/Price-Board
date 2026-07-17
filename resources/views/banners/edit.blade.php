@@ -1,5 +1,9 @@
 <x-app-layout>
 
+        <x-slot name="title">
+        Editar Banner
+        </x-slot>   
+
 <div class="max-w-4xl mx-auto py-10">
 
 

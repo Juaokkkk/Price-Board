@@ -1,8 +1,8 @@
-<title>Configurações da TV</title>
-
 <x-app-layout>
-
-<link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
+    
+    <x-slot name="title">
+        Configurações
+    </x-slot>   
 
 <div class="py-8">
     <div class="max-w-5xl mx-auto px-4">

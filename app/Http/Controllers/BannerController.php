@@ -6,6 +6,7 @@ use App\Models\Banner;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Carbon\Carbon;
 
 class BannerController extends Controller
 {
@@ -21,10 +22,13 @@ class BannerController extends Controller
 
 
 
+
+
     public function create()
     {
         return view('banners.create');
     }
+
 
 
 
@@ -42,21 +46,45 @@ class BannerController extends Controller
 
 
 
+
+
         $imagem = $request->file('imagem')
             ->store('banners', 'public');
 
 
 
+
+
+
         Banner::create([
+
             'user_id' => Auth::id(),
+
             'imagem' => $imagem,
+
             'titulo' => $request->titulo,
+
             'ativo' => true,
+
             'ordem' => 0,
-            'inicio' => $request->inicio,
-            'fim' => $request->fim,
+
+
+            'inicio' => $request->inicio
+                ? Carbon::parse($request->inicio)->startOfDay()
+                : null,
+
+
+            'fim' => $request->fim
+                ? Carbon::parse($request->fim)->endOfDay()
+                : null,
+
+
             'duracao' => $request->duracao ?? 5,
+
         ]);
+
+
+
 
 
 
@@ -70,11 +98,16 @@ class BannerController extends Controller
 
 
 
+
+
+
     public function edit(Banner $banner)
     {
 
         if ($banner->user_id != Auth::id()) {
+
             abort(403);
+
         }
 
 
@@ -88,35 +121,62 @@ class BannerController extends Controller
 
 
 
+
+
     public function update(Request $request, Banner $banner)
     {
 
         if ($banner->user_id != Auth::id()) {
+
             abort(403);
+
         }
 
 
 
+
+
+
         $request->validate([
+
             'imagem' => 'nullable|image|max:2048',
+
             'titulo' => 'nullable|string|max:255',
+
             'inicio' => 'nullable|date',
+
             'fim' => 'nullable|date',
+
             'duracao' => 'nullable|integer|min:1',
+
         ]);
+
+
+
 
 
 
 
         $dados = [
 
+
             'titulo' => $request->titulo,
 
-            'inicio' => $request->inicio,
 
-            'fim' => $request->fim,
+            'inicio' => $request->inicio
+                ? Carbon::parse($request->inicio)->startOfDay()
+                : null,
+
+
+
+            'fim' => $request->fim
+                ? Carbon::parse($request->fim)->endOfDay()
+                : null,
+
+
 
             'duracao' => $request->duracao ?? 5,
+
 
         ];
 
@@ -125,7 +185,9 @@ class BannerController extends Controller
 
 
 
-        // Se enviar uma nova imagem
+
+
+        // Nova imagem enviada
 
         if($request->hasFile('imagem')){
 
@@ -146,7 +208,12 @@ class BannerController extends Controller
 
 
 
+
+
         $banner->update($dados);
+
+
+
 
 
 
@@ -169,8 +236,13 @@ class BannerController extends Controller
     {
 
         if ($banner->user_id != Auth::id()) {
+
             abort(403);
+
         }
+
+
+
 
 
 
@@ -179,7 +251,12 @@ class BannerController extends Controller
 
 
 
+
         $banner->delete();
+
+
+
+
 
 
 
@@ -195,12 +272,18 @@ class BannerController extends Controller
 
 
 
+
+
     public function updateStatus(Banner $banner)
     {
 
         if ($banner->user_id != Auth::id()) {
+
             abort(403);
+
         }
+
+
 
 
 
@@ -209,6 +292,8 @@ class BannerController extends Controller
             'ativo' => !$banner->ativo
 
         ]);
+
+
 
 
 

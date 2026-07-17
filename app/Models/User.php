@@ -29,9 +29,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+    'name',
+    'email',
+    'password',
+    'tipo',
     ];
 
     /**
@@ -77,4 +78,10 @@ class User extends Authenticatable
 {
     return $this->hasOne(Configuracao::class);
 }
+
+public function isAdmin()
+{
+    return $this->tipo === 'admin';
+}
+
 }

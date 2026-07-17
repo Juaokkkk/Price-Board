@@ -1,5 +1,10 @@
 <x-app-layout>
 
+<x-slot name="title">
+    Banners da TV
+</x-slot>
+
+
 <div class="max-w-6xl mx-auto py-10">
 
 
@@ -39,7 +44,7 @@
 
             <img 
                 src="{{ asset('storage/'.$banner->imagem) }}"
-                class="w-full h-40 object-cover rounded-lg"
+                class="w-full h-40 object-contain bg-gray-100 dark:bg-slate-800 rounded-lg"
             >
 
 
@@ -48,6 +53,7 @@
             <h3 class="font-bold mt-4 text-gray-900 dark:text-white">
                 {{ $banner->titulo ?? 'Sem título' }}
             </h3>
+
 
 
 
@@ -65,28 +71,48 @@
 
 
 
+
             <p class="text-gray-700 dark:text-gray-300 mt-1">
 
-                Status:
+                Início:
+
+                <span class="font-medium">
+
+                    @if($banner->inicio)
+
+                        {{ \Carbon\Carbon::parse($banner->inicio)->format('d/m/Y') }}
+
+                    @else
+
+                        Sem data
+
+                    @endif
+
+                </span>
+
+            </p>
 
 
-                @if($banner->ativo)
-
-                    <span class="text-green-600 dark:text-green-400 font-semibold">
-                        Ativo
-                    </span>
 
 
-                @else
 
+            <p class="text-gray-700 dark:text-gray-300 mt-1">
 
-                    <span class="text-red-600 dark:text-red-400 font-semibold">
-                        Inativo
-                    </span>
+                Fim:
 
+                <span class="font-medium">
 
-                @endif
+                    @if($banner->fim)
 
+                        {{ \Carbon\Carbon::parse($banner->fim)->format('d/m/Y') }}
+
+                    @else
+
+                        Sem data
+
+                    @endif
+
+                </span>
 
             </p>
 
@@ -95,7 +121,57 @@
 
 
 
-            <div class="flex flex-wrap gap-3 mt-5">
+          <p class="text-gray-700 dark:text-gray-300 mt-2">
+
+    Status:
+
+
+    @if(!$banner->ativo)
+
+        <span class="ml-1 text-gray-500 dark:text-gray-400 font-semibold">
+            Inativo
+        </span>
+
+
+    @elseif(
+        $banner->inicio &&
+        now()->lt(\Carbon\Carbon::parse($banner->inicio)->startOfDay())
+    )
+
+        <span class="ml-1 text-yellow-600 dark:text-yellow-400 font-semibold">
+            Agendado
+        </span>
+
+
+    @elseif(
+        $banner->fim &&
+        now()->gt(\Carbon\Carbon::parse($banner->fim)->endOfDay())
+    )
+
+        <span class="ml-1 text-red-600 dark:text-red-400 font-semibold">
+            Expirado
+        </span>
+
+
+    @else
+
+        <span class="ml-1 text-green-600 dark:text-green-400 font-semibold">
+            Ativo
+        </span>
+
+
+    @endif
+
+
+</p>
+
+
+
+
+
+
+
+            <div class="flex items-center gap-2 mt-5 overflow-x-auto">
 
 
 
@@ -107,7 +183,7 @@
                 href="{{ route('banners.edit',$banner) }}"
                 class="
                 flex items-center gap-2
-                px-4 py-2
+                px-3 py-2
                 rounded-lg
                 bg-blue-100 dark:bg-blue-500/10
                 text-blue-600 dark:text-blue-400
@@ -115,6 +191,7 @@
                 transition
                 text-sm
                 font-medium
+                whitespace-nowrap
                 ">
 
 
@@ -151,7 +228,7 @@
                     <button 
                     class="
                     flex items-center gap-2
-                    px-4 py-2
+                    px-3 py-2
                     rounded-lg
                     bg-red-100 dark:bg-red-500/10
                     text-red-600 dark:text-red-400
@@ -159,6 +236,7 @@
                     transition
                     text-sm
                     font-medium
+                    whitespace-nowrap
                     ">
 
 
@@ -174,7 +252,6 @@
 
 
                 </form>
-
 
 
 
@@ -199,7 +276,7 @@
                     <button 
                     class="
                     flex items-center gap-2
-                    px-4 py-2
+                    px-3 py-2
                     rounded-lg
                     bg-purple-100 dark:bg-purple-500/10
                     text-purple-600 dark:text-purple-400
@@ -207,12 +284,12 @@
                     transition
                     text-sm
                     font-medium
+                    whitespace-nowrap
                     ">
 
 
 
                         <span class="material-symbols-outlined text-[18px]">
-
 
                             @if($banner->ativo)
 
@@ -224,7 +301,6 @@
 
                             @endif
 
-
                         </span>
 
 
@@ -235,11 +311,9 @@
 
                             Desativar
 
-
                         @else
 
                             Ativar
-
 
                         @endif
 
@@ -251,7 +325,6 @@
 
 
                 </form>
-
 
 
 

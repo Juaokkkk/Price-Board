@@ -65,6 +65,23 @@
     </span>
 </x-nav-link>
 
+    @if(auth()->user()->isAdmin())
+
+<x-nav-link
+    href="{{ route('usuarios.index') }}"
+    :active="request()->routeIs('usuarios.*')"
+>
+    <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[18px]">
+            group
+        </span>
+
+        Usuários
+    </span>
+</x-nav-link>
+
+@endif
+
         <x-nav-link
             href="/tv/acougue"
             target="tvscreen"
@@ -240,6 +257,17 @@
             >
             Configurações
             </x-responsive-nav-link>
+
+            @if(auth()->user()->isAdmin())
+
+<x-responsive-nav-link
+    href="{{ route('usuarios.index') }}"
+    :active="request()->routeIs('usuarios.*')"
+>
+    Usuários
+</x-responsive-nav-link>
+
+@endif
 
             <x-responsive-nav-link
                 href="/tv/acougue"

@@ -1,4 +1,8 @@
 <x-app-layout>
+    
+    <x-slot name="title">
+        Cadastro de Banners
+    </x-slot>   
 
 <div class="max-w-4xl mx-auto py-10">
 

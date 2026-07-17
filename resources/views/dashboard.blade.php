@@ -1,6 +1,8 @@
-<link rel="shortcut icon" href="{{ asset('assets/img/iconPB.png') }}">
-<title>Dashboard</title>
 <x-app-layout>
+        <x-slot name="title">
+        Dashboard
+        </x-slot>   
+
     <x-slot name="header">
         <div class="flex items-center h-8">
             <h2 class="font-semibold text-xl text-gray-800 dark:text-white">

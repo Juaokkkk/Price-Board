@@ -5,6 +5,7 @@ use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ConfiguracaoController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\UsuarioController;
 
 Route::middleware([
     'auth:sanctum',
@@ -86,5 +87,13 @@ Route::delete('/admin/banners/{banner}', [BannerController::class, 'destroy'])
 // ATIVAR/DESATIVAR
 Route::patch('/admin/banners/{banner}/status', [BannerController::class, 'updateStatus'])
     ->name('banners.status');
+
+    // SOMENTE ADMIN
+Route::middleware(['admin'])->group(function () {
+
+    Route::resource('usuarios', UsuarioController::class)
+        ->except(['show']);
+
+});
 
 });

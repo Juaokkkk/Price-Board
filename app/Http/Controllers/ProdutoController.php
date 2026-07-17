@@ -30,10 +30,25 @@ class ProdutoController extends Controller
         ->get();
 
 
-    $banners = Banner::where('user_id', auth()->id())
-        ->where('ativo', true)
-        ->orderBy('ordem')
-        ->get();
+$banners = Banner::where('user_id', auth()->id())
+    ->where('ativo', true)
+
+    ->where(function($query){
+
+        $query->whereNull('inicio')
+              ->orWhereDate('inicio', '<=', now());
+
+    })
+
+    ->where(function($query){
+
+        $query->whereNull('fim')
+              ->orWhereDate('fim', '>=', now());
+
+    })
+
+    ->orderBy('ordem')
+    ->get();
 
 
     $configuracao = Configuracao::where(
