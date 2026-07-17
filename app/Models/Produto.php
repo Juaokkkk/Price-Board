@@ -8,16 +8,17 @@ class Produto extends Model
 {
     protected $table = 'produtos';
 
-    protected $fillable = [
-        'user_id',
-        'nome',
-        'preco',
-        'categoria',
-        'imagem',
-        'promocao',
-        'ativo',
-        'ordem'
-    ];
+protected $fillable = [
+    'user_id',
+    'codigo',
+    'nome',
+    'preco',
+    'categoria',
+    'imagem',
+    'promocao',
+    'ativo',
+    'ordem',
+];
 
     public function user()
     {
