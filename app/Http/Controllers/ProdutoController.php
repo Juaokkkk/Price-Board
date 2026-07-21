@@ -69,9 +69,11 @@ $banners = Banner::where('user_id', auth()->id())
 
     public function index()
 {
-    $produtos = Produto::where('user_id', auth()->id())
-        ->orderBy('ordem')
-        ->get();
+$produtos = Produto::where('user_id', auth()->id())
+    ->where('ativo', true)
+    ->orderBy('ordem')
+    ->limit(12)
+    ->get();
 
     $proximaOrdem = (
         Produto::where('user_id', auth()->id())

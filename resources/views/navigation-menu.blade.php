@@ -11,7 +11,7 @@
                         </div>
 
                     <!-- Navigation Links -->
-    <div class="hidden sm:flex sm:items-center space-x-2 sm:ms-10">
+    <div class="hidden sm:flex sm:items-center space-x-1 sm:ms-6">  
 
         <x-nav-link
             href="{{ route('dashboard') }}"
@@ -51,6 +51,21 @@
         Banners
     </span>
 </x-nav-link>
+
+        <x-nav-link
+            href="{{ route('mgv.historico') }}"
+            :active="request()->routeIs('mgv.historico')"
+        >
+            <span class="flex items-center gap-1">
+
+                <span class="material-symbols-outlined text-[18px]">
+                    history
+                </span>
+
+                MGV
+
+            </span>
+        </x-nav-link>
 
         <x-nav-link
     href="{{ route('configuracoes.index') }}"
@@ -250,6 +265,19 @@
             >
                 Produtos
             </x-responsive-nav-link>
+
+<x-nav-link
+    href="{{ route('mgv.index') }}"
+    :active="request()->routeIs('mgv.*')"
+>
+    <span class="flex items-center gap-1">
+        <span class="material-symbols-outlined text-[18px]">
+            upload_file
+        </span>
+
+        Importar MGV
+    </span>
+</x-nav-link>
 
             <x-responsive-nav-link
              href="{{ route('configuracoes.index') }}"
