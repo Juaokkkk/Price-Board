@@ -38,6 +38,10 @@ body{
 
     align-items:center;
 
+    gap:25px;
+
+    flex-wrap:wrap;
+
     margin-bottom:35px;
 }
 
@@ -247,8 +251,8 @@ body{
     minmax(180px,1fr)
     minmax(150px,1fr)
     160px
-    220px
-    220px;
+    auto
+    auto;
 
     gap:18px;
 
@@ -814,6 +818,185 @@ select{
     transform:translateY(-1px);
 }
 
+
+/* =========================
+   PAGINAÇÃO
+========================= */
+
+.paginacao{
+
+    display:flex;
+    justify-content:center;
+    margin-top:30px;
+
+}
+
+
+.paginacao nav{
+
+    display:flex;
+    gap:8px;
+    align-items:center;
+
+}
+
+
+.paginacao nav div:first-child{
+
+    display:none;
+
+}
+
+
+
+.paginacao a,
+.paginacao span{
+
+    min-width:38px;
+
+    height:38px;
+
+    padding:0 12px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:10px;
+
+    font-size:14px;
+
+    text-decoration:none;
+
+    transition:.2s ease;
+
+}
+
+
+/* =========================
+   BOTÕES NORMAIS
+========================= */
+
+
+.paginacao a{
+
+    background:transparent;
+
+    border:1px solid var(--borda);
+
+    color:var(--texto);
+
+}
+
+
+
+.paginacao a:hover{
+
+    transform:translateY(-2px);
+
+    border-color:var(--principal);
+
+    box-shadow:0 0 0 2px rgba(59,130,246,.25);
+
+}
+
+
+
+/* =========================
+   PÁGINA ATUAL
+========================= */
+
+
+.paginacao span[aria-current="page"]{
+
+    background:var(--principal);
+
+    color:white;
+
+    border:2px solid white;
+
+    box-shadow:0 0 0 2px var(--principal);
+
+}
+
+
+
+/* =========================
+   RETICÊNCIAS (...)
+========================= */
+
+
+.paginacao span:not([aria-current="page"]){
+
+    background:transparent;
+
+    color:var(--texto);
+
+    border:1px solid transparent;
+
+}
+
+
+
+/* =========================
+   TEMA ESCURO
+========================= */
+
+
+body:not([data-theme="light"]) .paginacao a{
+
+    color:#f9fafb;
+
+    border-color:#4b5563;
+
+}
+
+
+body:not([data-theme="light"]) .paginacao span:not([aria-current="page"]){
+
+    color:#f9fafb;
+
+}
+
+
+
+/* =========================
+   TEMA CLARO
+========================= */
+
+
+body[data-theme="light"] .paginacao a{
+
+    color:#111827;
+
+    border-color:#d1d5db;
+
+}
+
+
+body[data-theme="light"] .paginacao span:not([aria-current="page"]){
+
+    color:#111827;
+
+}
+
+
+
+/* =========================
+   SETAS
+========================= */
+
+
+.paginacao svg{
+
+    width:16px;
+
+    height:16px;
+
+}
+
 body:not([data-theme="light"]) .link-nav{
     background:#0f172a;
     color:#e2e8f0;
@@ -855,6 +1038,8 @@ body[data-theme="light"] .popup-erro{
     gap:8px;
 
     width:400px;
+
+    max-width:100%;
 
     height:58px;
 

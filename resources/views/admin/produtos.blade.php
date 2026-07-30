@@ -126,7 +126,7 @@
 
         </div>
 
-        <div class="busca-topo">
+        <form method="GET" action="/admin/produtos" class="busca-topo">
 
     <span class="material-symbols-outlined">
         search
@@ -134,11 +134,12 @@
 
     <input
         type="text"
-        id="buscarProduto"
-        placeholder="Buscar..."
+        name="busca"
+        value="{{ request('busca') }}"
+        placeholder="Buscar produto..."
     >
 
-</div>
+</form>
 
 
         <div class="acoes-topo">
@@ -259,19 +260,17 @@
 
             <div class="campo">
 
-                <label>
-                    Ordem na TV
-                </label>
+    <label>
+        Ordem na TV
+    </label>
 
-                <input
-                type="number"
-                name="ordem"
-                value="{{ $proximaOrdem }}"
-                min="1"
-                required
->
+ <input
+    type="text"
+    value="Automático"
+    disabled
+>   
 
-            </div>
+</div>
 
 
             <div class="campo-checkbox">
@@ -322,7 +321,7 @@
             </div>
 
             <span class="quantidade">
-                {{ count($produtos) }} produtos
+                {{ $produtos->total() }} produtos
             </span>
 
         </div>
@@ -353,8 +352,6 @@
 
                 <div
                 class="produto-item"
-                data-produto="{{ strtolower($produto->nome) }}"
-                data-categoria="{{ strtolower($produto->categoria) }}"
                 >
 
                     <div class="produto-topo">
@@ -504,19 +501,20 @@
 
 
 
-                            <div class="campo">
+                           <div class="campo">
 
-                                <label>
-                                    Ordem na TV
-                                </label>
+    <label>
+        Ordem na TV
+    </label>
 
-                              <input
-                                type="number"
-                                name="ordem"
-                                value="{{ $produto->ordem }}"
-                                min="1"
-        >
-                            </div>
+    <input
+        type="number"
+        name="ordem"
+        value="{{ $produto->ordem > 0 ? $produto->ordem : '' }}"
+        min="1"
+    >
+
+</div>
 
                         </div>
 
@@ -527,25 +525,25 @@
                             <label class="checkbox">
 
                                 <input
-                                    type="checkbox"
-                                    name="promocao"
-                                    {{ $produto->promocao ? 'checked' : '' }}
-                                >
+    type="checkbox"
+    name="promocao"
+    value="1"
+    {{ $produto->promocao ? 'checked' : '' }}
+>
 
-                                Produto em Oferta
-
+Produto em Oferta
                             </label>
 
 
 
                             <label class="checkbox">
 
-                                <input
-                                    type="checkbox"
-                                    name="ativo"
-                                    {{ $produto->ativo ? 'checked' : '' }}
-                                >
-
+                               <input
+                                type="checkbox"
+                                 name="ativo"
+                                value="1"
+                             {{ $produto->ativo ? 'checked' : '' }}
+                            >
                                 Exibir na TV
 
                             </label>
@@ -586,6 +584,10 @@
                 </div>
 
             @endforeach
+
+            <div class="paginacao">
+              {{ $produtos->links() }}
+            </div>
 
         </div>
 
@@ -662,42 +664,8 @@ function fecharPopupSucesso(){
 
 }
 
-const busca = document.getElementById('buscarProduto');
 
-if(busca){
 
-    busca.addEventListener('input', function(){
-
-        const termo = this.value.toLowerCase().trim();
-
-        document
-            .querySelectorAll('.produto-item')
-            .forEach(produto => {
-
-                const nome =
-                    produto.dataset.produto;
-
-                const categoria =
-                    produto.dataset.categoria;
-
-                if(
-                    nome.includes(termo) ||
-                    categoria.includes(termo)
-                ){
-
-                    produto.style.display = '';
-
-                }else{
-
-                    produto.style.display = 'none';
-
-                }
-
-            });
-
-    });
-
-}
 
 </script>
 
