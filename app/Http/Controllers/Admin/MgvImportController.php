@@ -32,17 +32,17 @@ class MgvImportController extends Controller
         );
 
         ImportacaoMgv::create([
-            'user_id'     => auth()->id(),
-            'arquivo'     => $arquivo->getClientOriginalName(),
-            'novos'       => $resultado['importados'],
-            'existentes'  => 0,
+            'user_id' => auth()->id(),
+            'arquivo' => $arquivo->getClientOriginalName(),
+            'novos' => $resultado['novos'],
+            'existentes' => $resultado['atualizados'],
         ]);
 
         return redirect()
             ->back()
             ->with(
                 'success',
-                "Importação concluída! {$resultado['importados']} produtos sincronizados."
+                "Importação concluída! {$resultado['novos']} novos e {$resultado['atualizados']} existentes atualizados."
             );
     }
 

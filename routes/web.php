@@ -21,30 +21,59 @@ Route::middleware([
 
     Route::get('/tv/acougue', [ProdutoController::class, 'tv']);
 
-    // PRODUTOS
+    /*
+    |--------------------------------------------------------------------------
+    | PRODUTOS
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/admin/produtos', [ProdutoController::class, 'index']);
     Route::post('/admin/produtos', [ProdutoController::class, 'store']);
     Route::put('/admin/produtos/{produto}', [ProdutoController::class, 'update']);
     Route::delete('/admin/produtos/{produto}', [ProdutoController::class, 'destroy']);
 
-    // DASHBOARD
+    /*
+    |--------------------------------------------------------------------------
+    | DASHBOARD
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->name('dashboard');
 
-    // CONFIGURAÇÕES
+    /*
+    |--------------------------------------------------------------------------
+    | CONFIGURAÇÕES
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/admin/configuracoes', [ConfiguracaoController::class, 'index'])
         ->name('configuracoes.index');
 
     Route::post('/admin/configuracoes', [ConfiguracaoController::class, 'update'])
         ->name('configuracoes.update');
 
-    Route::delete('/admin/configuracoes/remover-logo', [ConfiguracaoController::class, 'removerLogo'])
-        ->name('configuracoes.removerLogo');
+    Route::post(
+        '/admin/configuracoes/gerar-token',
+        [ConfiguracaoController::class, 'gerarToken']
+    )->name('configuracoes.gerar-token');
 
-    Route::delete('/admin/configuracoes/remover-fundo', [ConfiguracaoController::class, 'removerFundo'])
-        ->name('configuracoes.removerFundo');
+    Route::delete(
+        '/admin/configuracoes/remover-logo',
+        [ConfiguracaoController::class, 'removerLogo']
+    )->name('configuracoes.removerLogo');
 
-    // BANNERS
+    Route::delete(
+        '/admin/configuracoes/remover-fundo',
+        [ConfiguracaoController::class, 'removerFundo']
+    )->name('configuracoes.removerFundo');
+
+    /*
+    |--------------------------------------------------------------------------
+    | BANNERS
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/admin/banners', [BannerController::class, 'index'])
         ->name('banners.index');
 
@@ -66,7 +95,12 @@ Route::middleware([
     Route::patch('/admin/banners/{banner}/status', [BannerController::class, 'updateStatus'])
         ->name('banners.status');
 
-    // IMPORTAÇÃO MGV
+    /*
+    |--------------------------------------------------------------------------
+    | IMPORTAÇÃO MGV
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/admin/importar-mgv', [MgvImportController::class, 'index'])
         ->name('mgv.index');
 
@@ -76,17 +110,26 @@ Route::middleware([
     Route::delete('/admin/importar-mgv', [MgvImportController::class, 'limpar'])
         ->name('mgv.limpar');
 
-    // HISTÓRICO DE IMPORTAÇÕES
+    /*
+    |--------------------------------------------------------------------------
+    | HISTÓRICO
+    |--------------------------------------------------------------------------
+    */
+
     Route::get('/admin/importacoes-mgv', [ImportacaoMgvController::class, 'index'])
         ->name('mgv.historico');
 
-    // EXCLUIR UMA IMPORTAÇÃO DO HISTÓRICO
     Route::delete(
         '/admin/importacoes-mgv/{importacao}',
         [ImportacaoMgvController::class, 'destroy']
     )->name('mgv.destroy');
 
-    // SOMENTE ADMIN
+    /*
+    |--------------------------------------------------------------------------
+    | USUÁRIOS (ADMIN)
+    |--------------------------------------------------------------------------
+    */
+
     Route::middleware(['admin'])->group(function () {
 
         Route::resource('usuarios', UsuarioController::class)

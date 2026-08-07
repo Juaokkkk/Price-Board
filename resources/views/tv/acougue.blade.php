@@ -99,28 +99,25 @@
 
             <div class="linha">
 
-                <div class="nome">
+    <div class="nome">
+        {{ $produto->nome }}
+    </div>
 
-                    {{ $produto->nome }}
+    <div class="coluna-oferta">
 
-                    @if($produto->promocao)
+        @if($produto->promocao)
+            <span class="oferta">
+                OFERTA
+            </span>
+        @endif
 
-                        <span class="oferta">
-                            OFERTA
-                        </span>
+    </div>
 
-                    @endif
+    <div class="preco">
+        {{ number_format($produto->preco, 2, ',', '.') }}
+    </div>
 
-                </div>
-
-
-                <div class="preco">
-
-                    {{ number_format($produto->preco, 2, ',', '.') }}
-
-                </div>
-
-            </div>
+</div>
 
         @endforeach
 

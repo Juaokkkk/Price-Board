@@ -14,7 +14,11 @@ class Mgv6Importer
             FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES
         );
 
-        $produtos = [];
+        if ($linhas === false) {
+            throw new \RuntimeException('Não foi possível ler o arquivo MGV.');
+        }
+
+        $produtosMgv = [];
 
         foreach ($linhas as $linha) {
 
@@ -29,7 +33,7 @@ class Mgv6Importer
 
             $nome = trim(substr($linha, 18, 60));
 
-            // Remove códigos numéricos no final (ex: 0236960000)
+            // Remove códigos numéricos no final do nome
             $nome = preg_replace('/\s+\d+$/', '', $nome);
 
             // Remove espaços duplicados
@@ -37,38 +41,101 @@ class Mgv6Importer
 
             $nome = trim($nome);
 
+            // Ignora registros inválidos
+            if ($codigo <= 0 || $nome === '') {
+                continue;
+            }
 
-            $produtos[] = [
-                'user_id' => $userId,
+            /*
+             * Usa o código como chave.
+             *
+             * Se o arquivo possuir o mesmo código mais de uma vez,
+             * a última ocorrência será considerada.
+             */
+            $produtosMgv[$codigo] = [
                 'codigo' => $codigo,
                 'nome' => $nome,
                 'preco' => $preco,
-
-                // Importa desativado.
-                // O cliente escolhe manualmente quais produtos irão para a TV.
-                'ativo' => false,
-
-                'created_at' => now(),
-                'updated_at' => now(),
             ];
         }
 
+        $novos = 0;
+        $atualizados = 0;
 
-        DB::transaction(function () use ($produtos, $userId) {
+        DB::transaction(function () use (
+            $produtosMgv,
+            $userId,
+            &$novos,
+            &$atualizados
+        ) {
 
-            // Remove apenas os produtos desse mercado
-            Produto::where('user_id', $userId)
-                ->delete();
+            /*
+             * Busca os produtos que esse mercado já possui.
+             *
+             * O código é usado como chave para comparação.
+             */
+            $existentes = Produto::where('user_id', $userId)
+                ->get()
+                ->keyBy('codigo');
 
+            foreach ($produtosMgv as $dados) {
 
-            // Insere a nova carga do MGV
-            Produto::insert($produtos);
+                $produtoExistente = $existentes->get($dados['codigo']);
 
+                /*
+                 * PRODUTO JÁ EXISTE
+                 *
+                 * Atualizamos SOMENTE as informações vindas do MGV.
+                 *
+                 * Não alteramos:
+                 *
+                 * ativo
+                 * imagem
+                 * ordem
+                 * promocao
+                 * categoria
+                 *
+                 * Portanto, a configuração feita pelo cliente
+                 * continua intacta.
+                 */
+                if ($produtoExistente) {
+
+                    $produtoExistente->update([
+                        'nome' => $dados['nome'],
+                        'preco' => $dados['preco'],
+                    ]);
+
+                    $atualizados++;
+
+                    continue;
+                }
+
+                /*
+                 * PRODUTO NOVO
+                 *
+                 * Entra DESATIVADO.
+                 *
+                 * Dessa forma ele não aparece automaticamente
+                 * na tela da TV.
+                 */
+                Produto::create([
+                    'user_id' => $userId,
+                    'codigo' => $dados['codigo'],
+                    'nome' => $dados['nome'],
+                    'preco' => $dados['preco'],
+                    'ativo' => false,
+                    'promocao' => false,
+                    'ordem' => 0,
+                ]);
+
+                $novos++;
+            }
         });
 
-
         return [
-            'importados' => count($produtos)
+            'importados' => count($produtosMgv),
+            'novos' => $novos,
+            'atualizados' => $atualizados,
         ];
     }
 }

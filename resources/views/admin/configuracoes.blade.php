@@ -188,6 +188,71 @@
                         </div>
                     </div>
 
+{{-- ===========================
+     INTEGRAÇÃO COM MGV
+=========================== --}}
+
+@if(auth()->user()->isAdmin())
+
+<div class="border-t border-gray-200 dark:border-slate-700 pt-8">
+
+    <h2 class="text-xl font-bold text-gray-800 dark:text-white mb-2">
+        Integração com MGV
+    </h2>
+
+    <p class="text-sm text-gray-500 dark:text-slate-400 mb-6">
+        Este token será utilizado pelo Monitor MGV para enviar automaticamente os produtos para este mercado.
+    </p>
+
+    <div class="bg-gray-50 dark:bg-slate-800 border border-gray-200 dark:border-slate-700 rounded-xl p-5">
+
+        <label class="block text-sm font-medium text-gray-700 dark:text-slate-300 mb-2">
+            Token da API
+        </label>
+
+        <div class="flex gap-3">
+
+            <input
+                id="apiToken"
+                type="password"
+                readonly
+                value="{{ auth()->user()->api_token ?? '' }}"
+                class="flex-1 rounded-lg border border-gray-300 dark:border-slate-700 bg-white dark:bg-slate-900 text-gray-900 dark:text-white px-3 py-2"
+            >
+
+            <button
+                type="button"
+                onclick="mostrarToken()"
+                class="px-4 py-2 rounded-lg bg-slate-700 hover:bg-slate-800 text-white"
+            >
+                Mostrar
+            </button>
+
+            <button
+                type="button"
+                onclick="copiarToken()"
+                class="px-4 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white"
+            >
+                Copiar
+            </button>
+
+        </div>
+
+        <button
+            type="submit"
+            form="formGerarToken"
+            onclick="return confirm('Gerar um novo token irá invalidar o monitor configurado anteriormente. Deseja continuar?')"
+            class="mt-5 bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded-lg"
+        >
+            Gerar Novo Token
+        </button>
+
+    </div>
+
+</div>
+
+@endif
+
                     {{-- BOTÃO SALVAR GERAL --}}
                     <div class="pt-6 border-t border-gray-200 dark:border-slate-700">
                         <button
@@ -231,4 +296,38 @@
     </form>
 @endif
 
+<form
+    id="formGerarToken"
+    action="{{ route('configuracoes.gerar-token') }}"
+    method="POST"
+    class="hidden"
+>
+    @csrf
+</form>
+
+
+<script>
+
+function mostrarToken(){
+
+    const campo = document.getElementById('apiToken');
+
+    campo.type =
+        campo.type === 'password'
+            ? 'text'
+            : 'password';
+
+}
+
+function copiarToken(){
+
+    const campo = document.getElementById('apiToken');
+
+    navigator.clipboard.writeText(campo.value);
+
+    alert('Token copiado para a área de transferência.');
+
+}
+
+</script>
 </x-app-layout>

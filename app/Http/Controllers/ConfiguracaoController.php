@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Configuracao;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class ConfiguracaoController extends Controller
@@ -97,5 +98,19 @@ class ConfiguracaoController extends Controller
         return redirect()
             ->route('configuracoes.index')
             ->with('success', 'Imagem de fundo removida com sucesso.');
+    }
+
+    public function gerarToken()
+    {
+        $usuario = Auth::user();
+
+        $token = $usuario->gerarApiToken();
+
+        return redirect()
+            ->route('configuracoes.index')
+            ->with([
+                'success' => 'Novo token da API gerado com sucesso.',
+                'token_gerado' => $token,
+            ]);
     }
 }

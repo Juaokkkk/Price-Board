@@ -2,64 +2,54 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-use App\Models\Configuracao;
 
 class User extends Authenticatable
 {
     use HasApiTokens;
-
-    /** @use HasFactory<UserFactory> */
     use HasFactory;
-
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
 
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array<int, string>
+     * Atributos atribuíveis em massa.
      */
     protected $fillable = [
-    'name',
-    'email',
-    'password',
-    'tipo',
+        'name',
+        'email',
+        'password',
+        'tipo',
+        'api_token',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array<int, string>
+     * Atributos ocultos.
      */
     protected $hidden = [
         'password',
         'remember_token',
         'two_factor_recovery_codes',
         'two_factor_secret',
+        'api_token',
     ];
 
     /**
-     * The accessors to append to the model's array form.
-     *
-     * @var array<int, string>
+     * Atributos adicionados automaticamente.
      */
     protected $appends = [
         'profile_photo_url',
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Conversões.
      */
     protected function casts(): array
     {
@@ -69,19 +59,47 @@ class User extends Authenticatable
         ];
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONAMENTOS
+    |--------------------------------------------------------------------------
+    */
+
     public function produtos()
     {
         return $this->hasMany(Produto::class);
     }
 
     public function configuracao()
-{
-    return $this->hasOne(Configuracao::class);
-}
+    {
+        return $this->hasOne(Configuracao::class);
+    }
 
-public function isAdmin()
-{
-    return $this->tipo === 'admin';
-}
+    /*
+    |--------------------------------------------------------------------------
+    | ADMIN
+    |--------------------------------------------------------------------------
+    */
 
+    public function isAdmin()
+    {
+        return $this->tipo === 'admin';
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | API TOKEN
+    |--------------------------------------------------------------------------
+    */
+
+    public function gerarApiToken(): string
+    {
+        $token = 'pb_' . Str::random(60);
+
+        $this->update([
+            'api_token' => $token,
+        ]);
+
+        return $token;
+    }
 }
